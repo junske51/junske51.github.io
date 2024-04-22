@@ -16,15 +16,15 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="HTTP本地访问 X-Real-Ip:X-Forwarded-For:Client-Ip: 代理（从哪个网站） Via: Referer(从哪个网站) User-Agent（从哪个浏览器） 杂1.$a !&#x3D; $b &amp;&amp; md5($a) &#x3D;&#x3D; md5($b)———-a&#x3D;240610708&amp;b&#x3D;s878926199a——弱类型">
+    <meta name="description" content="HTTP本地访问 X-Real-Ip:X-Forwarded-For:Client-Ip: 代理（从哪个网站） Via: Referer(从哪个网站) User-Agent（从哪个浏览器） CRLF攻击资料链接： https:&#x2F;&#x2F;www.cnblogs.com&#x2F;studyskill&#x2F;p&#x2F;6972576.html crlf顾名思义就是其中的回车和换行，造成的漏洞是HRS漏洞 在http当中http的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="杂记">
 <meta property="og:url" content="https://junske51.github.io/kele6.github.io/2024/04/15/%E6%9D%82%E8%AE%B0/index.html">
 <meta property="og:site_name" content="可乐">
-<meta property="og:description" content="HTTP本地访问 X-Real-Ip:X-Forwarded-For:Client-Ip: 代理（从哪个网站） Via: Referer(从哪个网站) User-Agent（从哪个浏览器） 杂1.$a !&#x3D; $b &amp;&amp; md5($a) &#x3D;&#x3D; md5($b)———-a&#x3D;240610708&amp;b&#x3D;s878926199a——弱类型">
+<meta property="og:description" content="HTTP本地访问 X-Real-Ip:X-Forwarded-For:Client-Ip: 代理（从哪个网站） Via: Referer(从哪个网站) User-Agent（从哪个浏览器） CRLF攻击资料链接： https:&#x2F;&#x2F;www.cnblogs.com&#x2F;studyskill&#x2F;p&#x2F;6972576.html crlf顾名思义就是其中的回车和换行，造成的漏洞是HRS漏洞 在http当中http的">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-04-15T15:08:58.000Z">
-<meta property="article:modified_time" content="2024-04-16T09:27:11.603Z">
+<meta property="article:modified_time" content="2024-04-17T05:44:36.663Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          945 words
+          1.3k words
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          8 mins
+          12 mins
         
       </span>
     
@@ -278,6 +278,20 @@
 <p>Via:</p>
 <p>Referer(从哪个网站)</p>
 <p>User-Agent（从哪个浏览器）</p>
+<h1 id="CRLF攻击"><a href="#CRLF攻击" class="headerlink" title="CRLF攻击"></a>CRLF攻击</h1><p>资料链接： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/studyskill/p/6972576.html">https://www.cnblogs.com/studyskill/p/6972576.html</a></p>
+<p>crlf顾名思义就是其中的回车和换行，造成的漏洞是HRS漏洞</p>
+<p>在http当中http的header和body之间就是两个crlf进行分隔的</p>
+<p>HRS漏洞就是如果能控制HTTP消息头中的字符，注入一些恶意的换行，这样就能注入一些会话cookie和html代码，所以crlf injection 又叫做 HTTP response Splitting</p>
+<p>HRS漏洞可以造成 固定会话漏洞 和 无视filter的反射型xss漏洞</p>
+<p>原理 一般网站会在HTTP头中用Location: <a href="http://baidu.com这种方式来进行302跳转，所以我们能控制的内容就是Location:后面的XXX某个网址，对这个地址进行污染。">http://baidu.com这种方式来进行302跳转，所以我们能控制的内容就是Location:后面的XXX某个网址，对这个地址进行污染。</a></p>
+<p>HRS漏洞存在的前提是 ：url当中输入的字符会影响到文件，比如在重定位当中可以尝试使用%0d%0a作为crlf，</p>
+<p>利用方式：连续使用两次%0d%oa就会造成header和body之间的分离。就可以在其中插入xss代码形成反射型xss漏洞（如何做到无视filiter？）</p>
+<p>如何绕过服务端的filiter(xss漏洞)</p>
+<p>1，可以在header当中注入另外的字符集<code>&lt;meta charset=ISO-2022-KR&gt;</code></p>
+<p>使用%0f进行标记，之后的字符就不会过滤</p>
+<p>2，可以注入一个X-XSS-Protection:0就不会被拦截了</p>
+<p>使用一次%0d%0a就可以注入其http header当中的代码比如注入set-cookie信息造成会话固定漏洞</p>
+<p>防范方式：在url当中过滤%0a%0d的字符，致使其不能进行转换，或者使其不能进行污染</p>
 <h1 id="杂"><a href="#杂" class="headerlink" title="杂"></a>杂</h1><p>1.$a !&#x3D; $b &amp;&amp; md5($a) &#x3D;&#x3D; md5($b)———-a&#x3D;240610708&amp;b&#x3D;s878926199a——弱类型</p>
 <p>2.$ver1!&#x3D;ver2—————–ver1[]&#x3D;1&amp;ver2[]&#x3D;2</p>
 <p>3.md和md5后都是以0e开头的字符串：（数字）：240610708 &#x3D;&#x3D;&gt;md5&#x3D;&#x3D;&gt; 0e462097431906509019562988736854</p>
