@@ -23,20 +23,10 @@
 <meta property="og:site_name" content="可乐">
 <meta property="og:description" content="xsslabs参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;ytdd66&#x2F;article&#x2F;details&#x2F;136946635 参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;ytdd66&#x2F;article&#x2F;details&#x2F;136946635 level-1—–无过滤1无过滤直接：&lt;script&gt;alert(123);&lt;&#x2F;script&gt;  level-2——闭合标">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/a10df435b4a94be4a3481e1d99d71d71.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/a10df435b4a94be4a3481e1d99d71d71.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/ff0bfa43bf4d454e881ce358844c9651.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2f2dd7d829ab4796a3f99eb55c5f6a79.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/4824b5a8ac984052b118e85e0ef7d723.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/16343a7a36204eb9883842c0fade4146.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/454dfa88edfc4ef8be18f846f5b6aff8.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/3cc75094c9d4495eac9cbb7bfa8c7e17.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/be82d9feca8f41d5ab6ae37fd01d6c57.png">
 <meta property="article:published_time" content="2024-04-15T06:18:20.000Z">
-<meta property="article:modified_time" content="2024-04-16T09:26:17.968Z">
+<meta property="article:modified_time" content="2024-05-02T15:47:38.746Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/direct/a10df435b4a94be4a3481e1d99d71d71.png">
   
   
   
@@ -306,24 +296,23 @@
 <p><em><strong>本关小结</strong>：插入指定内容（本关是http:&#x2F;&#x2F;）绕过检测，再将指定内容用注释符注释掉即可</em> </p>
 <h2 id="level10—–get传参，隐藏的input标签可以插入type-”text”显示"><a href="#level10—–get传参，隐藏的input标签可以插入type-”text”显示" class="headerlink" title="level10—–get传参，隐藏的input标签可以插入type&#x3D;”text”显示"></a>level10—–get传参，隐藏的input标签可以插入type&#x3D;”text”显示</h2><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs autoit">$str = $_GET[<span class="hljs-string">&quot;keyword&quot;</span>]<span class="hljs-comment">;</span><br><br><br><br>$str11 = $_GET[<span class="hljs-string">&quot;t_sort&quot;</span>]<span class="hljs-comment">;</span><br><br><br><br>$str22=str_replace(<span class="hljs-string">&quot;&gt;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>,$str11)<span class="hljs-comment">;</span><br><br><br><br>$str33=str_replace(<span class="hljs-string">&quot;&lt;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>,$str22)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
 
-<p>这两行代码对 $str11 变量进行字符串替换操作。首先，它移除了 $str11 中所有的 “&gt;” 字符，然后将结果存储在 $str22 中。接着，它移除了 $str22 中所有的 “&lt;” 字符，并将结果存储在 $str33 中首先，输出一个居中的 <code>&lt;h2&gt;</code> 标题，提示用户没有找到和 $str 相关的结果。这里使用htmlspecialchars() 函数来确保 $str 中的特殊字符被正确转义，接着，输出一个表单，其中包含了三个隐藏的输入字段：t_link、t_history 和 t_sort。前两个字段的值都被设置为空字符串，而第三个字段的值被设置为 $str33（即处理过的 $str11）<img src="https://img-blog.csdnimg.cn/direct/a10df435b4a94be4a3481e1d99d71d71.png" srcset="/kele6.github.io/img/loading.gif" lazyload alt="img"></p>
-<p>修改为text<img src="https://img-blog.csdnimg.cn/direct/a10df435b4a94be4a3481e1d99d71d71.png" srcset="/kele6.github.io/img/loading.gif" lazyload alt="img"></p>
+<p>这两行代码对 $str11 变量进行字符串替换操作。首先，它移除了 $str11 中所有的 “&gt;” 字符，然后将结果存储在 $str22 中。接着，它移除了 $str22 中所有的 “&lt;” 字符，并将结果存储在 $str33 中首先，输出一个居中的 <code>&lt;h2&gt;</code> 标题，提示用户没有找到和 $str 相关的结果。这里使用htmlspecialchars() 函数来确保 $str 中的特殊字符被正确转义，接着，输出一个表单，其中包含了三个隐藏的输入字段：t_link、t_history 和 t_sort。前两个字段的值都被设置为空字符串，而第三个字段的值被设置为 $str33（即处理过的 $str11）</p>
+<p>修改为text</p>
 <p><strong>payload:?t_sort&#x3D;onfocus&#x3D;javascript:alert() type&#x3D;”text”</strong></p>
 <p><em><strong>小结：根据源码猜解传参的参数名，隐藏的input标签可以插入type&#x3D;”text”显示</strong></em></p>
-<h2 id="level-11—–referer"><a href="#level-11—–referer" class="headerlink" title="level-11—–referer"></a>level-11—–referer</h2><p><code>&lt;input&gt;</code>标签有四个值，都做了隐藏处理，不难看出，第四个名为t_ref的<input>标签是http头referer的参数（就是由啥地址转跳到这里的，http头的referer会记录有），我们先做个简单的测试来验证一下前面三个标签名，GET与POST传参都试一下看看（<strong>都不行</strong>） <strong>那应该就referer头了，用burpsuite抓包一下，添加http头</strong> Referer: “ sRc DaTa OnFocus <code>&lt;sCriPt&gt; &lt;a hReF=javascript:alert()&gt;</code> <code>j</code> 对比发现，把大于小于号&gt;&lt;给删掉了，但是我们还能用onfocus，构造一个http头： Referer: “ onfocus&#x3D;javascript:alert() type&#x3D;”text <strong>本关小结</strong>：考虑一下http头传值，本关是referer，但接下来也有可能是其他头，如Cookie等</p>
+<h2 id="level-11—–referer"><a href="#level-11—–referer" class="headerlink" title="level-11—–referer"></a>level-11—–referer</h2><p><code>&lt;input&gt;</code>标签有四个值，都做了隐藏处理，不难看出，第四个名为t_ref的<code>&lt;input&gt;</code>标签是http头referer的参数（就是由啥地址转跳到这里的，http头的referer会记录有），我们先做个简单的测试来验证一下前面三个标签名，GET与POST传参都试一下看看（<strong>都不行</strong>） <strong>那应该就referer头了，用burpsuite抓包一下，添加http头</strong> Referer: “ sRc DaTa OnFocus <code>&lt;sCriPt&gt; &lt;a hReF=javascript:alert()&gt;</code> <code>j</code> 对比发现，把大于小于号&gt;&lt;给删掉了，但是我们还能用onfocus，构造一个http头： Referer: “ onfocus&#x3D;javascript:alert() type&#x3D;”text <strong>本关小结</strong>：考虑一下http头传值，本关是referer，但接下来也有可能是其他头，如Cookie等</p>
 <h2 id="level-12—–User-Agent头"><a href="#level-12—–User-Agent头" class="headerlink" title="level-12—–User-Agent头"></a>level-12—–User-Agent头</h2><p>User-Agent: “ onfocus&#x3D;javascript:alert() type&#x3D;”text</p>
 <h2 id="level-13—–Cookie头"><a href="#level-13—–Cookie头" class="headerlink" title="level-13—–Cookie头"></a>level-13—–Cookie头</h2><p>Cookie：” onclick&#x3D;alert() type&#x3D;”text </p>
-<h2 id="level-14—–Pass"><a href="#level-14—–Pass" class="headerlink" title="level-14—–Pass"></a>level-14—–Pass</h2><h2 id="level-15—–ng-include文件包涵，可以无视html实体化"><a href="#level-15—–ng-include文件包涵，可以无视html实体化" class="headerlink" title="level-15—–ng-include文件包涵，可以无视html实体化"></a>level-15—–ng-include文件包涵，可以无视html实体化<img src="https://img-blog.csdnimg.cn/ff0bfa43bf4d454e881ce358844c9651.png" srcset="/kele6.github.io/img/loading.gif" lazyload alt="img"></h2><p>ng-include 指令用于包含外部的 HTML 文件。 包含的内容将作为指定元素的子节点。——–<em><strong>ng-include指令就是文件包涵的意思，用来包涵外部的html文件，如果包涵的内容是地址，需要加引号</strong></em> ng-include 属性的值可以是一个表达式，返回一个文件名。 默认情况下，包含的文件需要包含在同一个域名下。</p>
+<h2 id="level-14—–Pass"><a href="#level-14—–Pass" class="headerlink" title="level-14—–Pass"></a>level-14—–Pass</h2><h2 id="level-15—–ng-include文件包涵，可以无视html实体化"><a href="#level-15—–ng-include文件包涵，可以无视html实体化" class="headerlink" title="level-15—–ng-include文件包涵，可以无视html实体化"></a>level-15—–ng-include文件包涵，可以无视html实体化</h2><p>ng-include 指令用于包含外部的 HTML 文件。 包含的内容将作为指定元素的子节点。——–<em><strong>ng-include指令就是文件包涵的意思，用来包涵外部的html文件，如果包涵的内容是地址，需要加引号</strong></em> ng-include 属性的值可以是一个表达式，返回一个文件名。 默认情况下，包含的文件需要包含在同一个域名下。</p>
 <p>语法 &lt; element  ng-include&#x3D; “filename”  οnlοad&#x3D; “expression”  autoscroll&#x3D; “expression”  &gt; &lt; &#x2F;element &gt; ng-include 指令作为元素使用:</p>
 <p>&lt; ng-include  src&#x3D; “filename”  οnlοad&#x3D; “expression”  autoscroll&#x3D; “expression”  &gt; &lt; &#x2F;ng-include &gt; 所有的 HTML 元素都支持该指令。</p>
 <p>参数值 值:	描述 filename:	文件名，可以使用表达式来返回文件名。 onload:	可选， 文件载入后执行的表达式。 autoscroll:	可选，包含的部分是否在指定视图上可滚动。</p>
 <p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011127019/article/details/53666528/">https://blog.csdn.net/u011127019/article/details/53666528/</a></p>
-<p><strong>开始做题：</strong> <strong>1</strong>.我们先试试看包涵第一关，构建payload：?src&#x3D;’&#x2F;level1.php’ <img src="https://img-blog.csdnimg.cn/2f2dd7d829ab4796a3f99eb55c5f6a79.png" srcset="/kele6.github.io/img/loading.gif" lazyload alt="img"></p>
-<p>所以可以随便包涵之前的一关并对其传参，以达到弹窗的效果，先测试一下过滤了啥，构造payload ?src&#x3D;” ‘ sRc DaTa OnFocus <code>&lt;s</code>CriPt&gt; &lt;a hReF&#x3D;javascript:alert()<code>&gt;</code> j <img src="https://img-blog.csdnimg.cn/4824b5a8ac984052b118e85e0ef7d723.png" srcset="/kele6.github.io/img/loading.gif" lazyload alt="img"></p>
-<p>**2.**对比发现，这里有个html实体化函数在，没有删掉东西，所以不影响我们接下来的操作，我们可以包涵第一关并让第一关弹窗（注意，这里不能包涵那些直接弹窗的东西如<code>&lt;script&gt;</code>，但是可以包涵那些标签的东西比如<code>&lt;a&gt;、&lt;input&gt;、&lt;img&gt;、&lt;p&gt;</code>标签等等，这些标签是能需要我们手动点击弹窗的），这里我们使用img标签，可参考XSS常见的触发标签，构造payload ：?src&#x3D;’&#x2F;level1.php?name&#x3D;&lt;	img src&#x3D;1 onmouseover&#x3D;alert()&gt;’ **3.**当鼠标移动到图片的时候就触发了弹窗 <img src="https://img-blog.csdnimg.cn/16343a7a36204eb9883842c0fade4146.png" srcset="/kele6.github.io/img/loading.gif" lazyload alt="img"></p>
-<p>当然也能用p标签，可以构造payload：?src&#x3D;’&#x2F;level1.php?name&#x3D;<code>&lt;</code>p onmousedown&#x3D;alert()&gt;哈哈哈&lt;&#x2F;p<code>&gt;</code>‘ 点击哈哈哈即可弹窗，接下来我们看一下这关的后端源码 <img src="https://img-blog.csdnimg.cn/454dfa88edfc4ef8be18f846f5b6aff8.png" srcset="/kele6.github.io/img/loading.gif" lazyload alt="img"></p>
-<h2 id="level-16—–回车代替空格绕过检测"><a href="#level-16—–回车代替空格绕过检测" class="headerlink" title="level-16—–回车代替空格绕过检测"></a>level-16—–回车代替空格绕过检测</h2><p><strong>1.</strong><img src="https://img-blog.csdnimg.cn/3cc75094c9d4495eac9cbb7bfa8c7e17.png" srcset="/kele6.github.io/img/loading.gif" lazyload alt="img"></p>
-<p>test插入到了center标签中，所以这里就不用闭合了，老规矩，先测试一波关键字：?<code>keyword=&quot; &#39; sRc DaTa OnFocus OnmOuseOver OnMouseDoWn P &lt;sCriPt&gt; &lt;a hReF=javascript:alert()&gt; j</code>  <code>.Kht.m.1..….g...app&gt;2 &lt;head&gt;</code> <code>3</code></p>
+<p><strong>开始做题：</strong> <strong>1</strong>.我们先试试看包涵第一关，构建payload：?src&#x3D;’&#x2F;level1.php’ </p>
+<p>所以可以随便包涵之前的一关并对其传参，以达到弹窗的效果，先测试一下过滤了啥，构造payload ?src&#x3D;” ‘ sRc DaTa OnFocus <code>&lt;s</code>CriPt&gt; &lt;a hReF&#x3D;javascript:alert()<code>&gt;</code> j</p>
+<p>**2.**对比发现，这里有个html实体化函数在，没有删掉东西，所以不影响我们接下来的操作，我们可以包涵第一关并让第一关弹窗（注意，这里不能包涵那些直接弹窗的东西如<code>&lt;script&gt;</code>，但是可以包涵那些标签的东西比如<code>&lt;a&gt;、&lt;input&gt;、&lt;img&gt;、&lt;p&gt;</code>标签等等，这些标签是能需要我们手动点击弹窗的），这里我们使用img标签，可参考XSS常见的触发标签，构造payload ：?src&#x3D;’&#x2F;level1.php?name&#x3D;&lt;	img src&#x3D;1 onmouseover&#x3D;alert()&gt;’ **3.**当鼠标移动到图片的时候就触发了弹窗 </p>
+<p>当然也能用p标签，可以构造payload：?src&#x3D;’&#x2F;level1.php?name&#x3D;<code>&lt;</code>p onmousedown&#x3D;alert()&gt;哈哈哈&lt;&#x2F;p<code>&gt;</code>‘ 点击哈哈哈即可弹窗，接下来我们看一下这关的后端源码 </p>
+<h2 id="level-16—–回车代替空格绕过检测"><a href="#level-16—–回车代替空格绕过检测" class="headerlink" title="level-16—–回车代替空格绕过检测"></a>level-16—–回车代替空格绕过检测</h2><p>1.test插入到了center标签中，所以这里就不用闭合了，老规矩，先测试一波关键字：?<code>keyword=&quot; &#39; sRc DaTa OnFocus OnmOuseOver OnMouseDoWn P &lt;sCriPt&gt; &lt;a hReF=javascript:alert()&gt; j</code>  <code>.Kht.m.1..….g...app&gt;2 &lt;head&gt;</code> <code>3</code></p>
 <p>&lt;body<code>&gt;</code>span class&#x3D;”ng-include:” ’sRc DaTa OnFocus &lt;sCriPtgt; 6lt;a hReF&#x3D;-javascript:alert()kgt ; “Xlspan(&#x2F;body 18</p>
 <p>**2.**对比发现，这里先是将字母小写化了，再把script替换成空格，最后将空格给实体化，想尝试一下p标签&lt;p οnmοusedοwn&#x3D;alert()&gt;abc&lt;&#x2F;p<code>&gt;</code>，谁知道也将&#x2F;给替换成了空格，无奈，只好看一下后端源码 <code>$str2=str_replace(&quot;script&quot; , &quot; &quot;,$str);</code> $str3&#x3D;str_replace(“ “, “ “ ,$str2); $str4&#x3D;str_replace(“&#x2F;“, “ “,$str3); $str5&#x3D;str_replace(“ “, “ “ ,$str4); echo “<code>&lt;center&gt;</code>“.$str5.”<code>&lt;/center</code>&gt;”;?&gt;&#96;</p>
 <p>**3.**果然给过掉了，空格可以用回车来代替绕过，回车的url编码是%0a，再配合上不用&#x2F;的<code>&lt;img&gt;、&lt;details&gt;、&lt;svg&gt;</code>等标签，更多标签可参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/LYJ20010728/article/details/116462782">XSS常见的触发标签</a></p>
@@ -331,7 +320,7 @@
 <h2 id="level-17—–embed标签"><a href="#level-17—–embed标签" class="headerlink" title="level-17—–embed标签"></a>level-17—–embed标签</h2><p><code>&lt;e</code>mbed src&#x3D;”xsf01.swf ?a&#x3D;b” width&#x3D;”100%” heigth&#x3D;”100%”&gt; </p>
 <p>这个传入了两个值，分别作为src中的xsf01.swf的变量和值传入,观察一下发现这个embed  标签就是引入一个  swf  文件到浏览器端，并且它的  src  属性值没有添 </p>
 <p>  加引号所以 不用闭合。 </p>
-<p>构造payload     ‘ οnclick&#x3D;alert() <img src="https://img-blog.csdnimg.cn/direct/be82d9feca8f41d5ab6ae37fd01d6c57.png" srcset="/kele6.github.io/img/loading.gif" lazyload alt="img"></p>
+<p>构造payload     ‘ οnclick&#x3D;alert()</p>
 <h2 id="level-18—–同17"><a href="#level-18—–同17" class="headerlink" title="level-18—–同17"></a>level-18—–同17</h2><h2 id="level-19—–Pass"><a href="#level-19—–Pass" class="headerlink" title="level-19—–Pass"></a>level-19—–Pass</h2><h2 id="level-20—–Pass"><a href="#level-20—–Pass" class="headerlink" title="level-20—–Pass"></a>level-20—–Pass</h2>
                 
               </div>
