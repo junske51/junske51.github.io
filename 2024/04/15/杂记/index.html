@@ -16,15 +16,15 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="HTTP本地访问 X-Real-Ip:X-Forwarded-For:Client-Ip: 代理（从哪个网站） Via: Referer(从哪个网站) User-Agent（从哪个浏览器） CRLF攻击资料链接： https:&#x2F;&#x2F;www.cnblogs.com&#x2F;studyskill&#x2F;p&#x2F;6972576.html crlf顾名思义就是其中的回车和换行，造成的漏洞是HRS漏洞 在http当中http的">
+    <meta name="description" content="HTTP本地访问 X-Real-Ip:X-Forwarded-For:Client-Ip: 代理（从哪个网站） Via: Referer(从哪个网站) User-Agent（从哪个浏览器） 反序列化—魔术方法__construct()       &#x2F;&#x2F;类的构造函数，创建对象时触发 __destruct()        &#x2F;&#x2F;类的析构函数，对象被销毁时触发 _">
 <meta property="og:type" content="article">
 <meta property="og:title" content="杂记">
 <meta property="og:url" content="https://junske51.github.io/kele6.github.io/2024/04/15/%E6%9D%82%E8%AE%B0/index.html">
 <meta property="og:site_name" content="可乐">
-<meta property="og:description" content="HTTP本地访问 X-Real-Ip:X-Forwarded-For:Client-Ip: 代理（从哪个网站） Via: Referer(从哪个网站) User-Agent（从哪个浏览器） CRLF攻击资料链接： https:&#x2F;&#x2F;www.cnblogs.com&#x2F;studyskill&#x2F;p&#x2F;6972576.html crlf顾名思义就是其中的回车和换行，造成的漏洞是HRS漏洞 在http当中http的">
+<meta property="og:description" content="HTTP本地访问 X-Real-Ip:X-Forwarded-For:Client-Ip: 代理（从哪个网站） Via: Referer(从哪个网站) User-Agent（从哪个浏览器） 反序列化—魔术方法__construct()       &#x2F;&#x2F;类的构造函数，创建对象时触发 __destruct()        &#x2F;&#x2F;类的析构函数，对象被销毁时触发 _">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-04-15T15:08:58.000Z">
-<meta property="article:modified_time" content="2024-04-17T05:44:36.663Z">
+<meta property="article:modified_time" content="2024-05-02T05:41:53.099Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k words
+          1.6k words
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          12 mins
+          14 mins
         
       </span>
     
@@ -278,6 +278,19 @@
 <p>Via:</p>
 <p>Referer(从哪个网站)</p>
 <p>User-Agent（从哪个浏览器）</p>
+<h1 id="反序列化—魔术方法"><a href="#反序列化—魔术方法" class="headerlink" title="反序列化—魔术方法"></a>反序列化—魔术方法</h1><p>__construct()       &#x2F;&#x2F;类的构造函数，创建对象时触发</p>
+<p>__destruct()        &#x2F;&#x2F;类的析构函数，对象被销毁时触发</p>
+<p>__call()            &#x2F;&#x2F;调用对象不可访问、不存在的方法时触发</p>
+<p>__callStatic()     &#x2F;&#x2F;在静态上下文中调用不可访问的方法时触发</p>
+<p>__get()            &#x2F;&#x2F;调用不可访问、不存在的对象成员属性时触发</p>
+<p>__set()           &#x2F;&#x2F;在给不可访问、不存在的对象成员属性赋值时触发</p>
+<p>__isset()         &#x2F;&#x2F;当对不可访问属性调用isset()或empty()时触发</p>
+<p>__unset()         &#x2F;&#x2F;在不可访问的属性上使用unset()时触发</p>
+<p>__invoke()        &#x2F;&#x2F;把对象当初函数调用时触发</p>
+<p>__sleep()        &#x2F;&#x2F;执行serialize()时，先会调用这个方法</p>
+<p>__wakeup()       &#x2F;&#x2F;执行unserialize()时，先会调用这个方法</p>
+<p>__toString()     &#x2F;&#x2F;把对象当成字符串调用时触发</p>
+<p>__clone()        &#x2F;&#x2F;使用clone关键字拷贝完一个对象后触发</p>
 <h1 id="CRLF攻击"><a href="#CRLF攻击" class="headerlink" title="CRLF攻击"></a>CRLF攻击</h1><p>资料链接： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/studyskill/p/6972576.html">https://www.cnblogs.com/studyskill/p/6972576.html</a></p>
 <p>crlf顾名思义就是其中的回车和换行，造成的漏洞是HRS漏洞</p>
 <p>在http当中http的header和body之间就是两个crlf进行分隔的</p>

